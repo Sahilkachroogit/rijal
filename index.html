@@ -1,0 +1,1236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Rijal — Inspired by Sunnah. Backed by Science.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          heading: ["'Instrument Serif'", "serif"],
+          body: ["'Barlow'", "sans-serif"],
+        },
+        colors: {
+          bg: "#0a0908",
+          ink: "#f6f1e6",
+          amber: {
+            50:  "#fbf6e9",
+            300: "#e9c878",
+            400: "#d6a94a",
+            500: "#b9892b",
+            600: "#8a6418",
+          },
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root{
+    --bg:#0a0908;
+    --ink:#f6f1e6;
+    --amber:#d6a94a;
+    --glass-bg: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.18);
+  }
+  /* Canvas provides the dark background — body/html must be transparent */
+  html,body{background:transparent;color:var(--ink);}
+  /* Lift all sections above the canvas layer */
+  section{position:relative;z-index:2;}
+  header{z-index:50;}
+  #toast{z-index:60;}
+  body{font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;}
+  .font-heading{font-family:'Instrument Serif',serif;}
+  .font-body{font-family:'Barlow',sans-serif;}
+
+  /* Liquid glass — subtle */
+  .liquid-glass{
+    background: rgba(255,255,255,0.025);
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: none;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .liquid-glass::before{
+    content:'';
+    position:absolute; inset:0;
+    border-radius:inherit;
+    padding:1.4px;
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0.45) 0%,
+      rgba(255,255,255,0.15) 20%,
+      rgba(255,255,255,0) 40%,
+      rgba(255,255,255,0) 60%,
+      rgba(255,255,255,0.15) 80%,
+      rgba(255,255,255,0.45) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events:none;
+  }
+
+  /* Liquid glass — strong (CTAs) */
+  .liquid-glass-strong{
+    background: rgba(255,255,255,0.04);
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: none;
+    box-shadow: 4px 4px 4px rgba(0,0,0,0.05),
+      inset 0 1px 1px rgba(255,255,255,0.18);
+    position: relative;
+    overflow: hidden;
+  }
+  .liquid-glass-strong::before{
+    content:'';
+    position:absolute; inset:0;
+    border-radius:inherit;
+    padding:1.4px;
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0.55) 0%,
+      rgba(255,255,255,0.22) 20%,
+      rgba(255,255,255,0) 40%,
+      rgba(255,255,255,0) 60%,
+      rgba(255,255,255,0.22) 80%,
+      rgba(255,255,255,0.55) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events:none;
+  }
+
+  /* Subtle film grain */
+  .grain::after{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
+    mix-blend-mode: overlay;
+    opacity:.35;
+  }
+
+  /* Cinematic section backgrounds */
+  .cine-hero{
+    background:
+      radial-gradient(60% 80% at 30% 20%, rgba(214,169,74,0.18), transparent 60%),
+      radial-gradient(50% 70% at 80% 90%, rgba(214,169,74,0.10), transparent 60%),
+      radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,0.9), rgba(0,0,0,0)),
+      linear-gradient(180deg, #110d08 0%, #0a0908 60%, #060504 100%);
+  }
+  .cine-mid{
+    background:
+      radial-gradient(80% 60% at 50% 50%, rgba(214,169,74,0.12), transparent 70%),
+      linear-gradient(180deg, #0d0a07, #0a0908 60%, #07060a);
+  }
+  .cine-stats{
+    background:
+      radial-gradient(60% 80% at 70% 50%, rgba(255,255,255,0.05), transparent 70%),
+      linear-gradient(180deg, #0a0908, #050403 60%, #0a0908);
+  }
+  .cine-cta{
+    background:
+      radial-gradient(60% 80% at 30% 80%, rgba(214,169,74,0.18), transparent 60%),
+      radial-gradient(80% 60% at 80% 20%, rgba(214,169,74,0.08), transparent 60%),
+      linear-gradient(180deg, #0a0807 0%, #0a0908 100%);
+  }
+
+  /* Slow parallax zoom for bg images */
+  @keyframes slowzoom{
+    0%{transform:scale(1.05);}
+    50%{transform:scale(1.18);}
+    100%{transform:scale(1.05);}
+  }
+  .slowzoom{animation: slowzoom 28s ease-in-out infinite;}
+
+  @keyframes shimmer {
+    0%{background-position:-200% 0;}
+    100%{background-position:200% 0;}
+  }
+  .shimmer-text{
+    background: linear-gradient(90deg, rgba(246,241,230,1) 0%, rgba(214,169,74,1) 50%, rgba(246,241,230,1) 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation: shimmer 6s linear infinite;
+  }
+
+  /* Striped placeholder for broken/missing images */
+  .stripe-placeholder{
+    background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.04) 0 12px, rgba(255,255,255,0.015) 12px 24px);
+    color: rgba(255,255,255,0.55);
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* Marquee */
+  @keyframes marquee {
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .marquee-track{animation: marquee 40s linear infinite;}
+
+  /* Dot separator */
+  .dot{width:4px;height:4px;border-radius:9999px;background:rgba(255,255,255,0.4);display:inline-block;flex-shrink:0;}
+
+  /* Scroll reveal */
+  .reveal{opacity:0;transform:translateY(28px);filter:blur(8px);transition:opacity .9s ease,transform .9s ease,filter .9s ease;}
+  .reveal.in{opacity:1;transform:none;filter:blur(0);}
+  .reveal.delay-100{transition-delay:.1s;}
+  .reveal.delay-200{transition-delay:.2s;}
+  .reveal.delay-300{transition-delay:.3s;}
+  .reveal.delay-400{transition-delay:.4s;}
+
+  /* BlurText hero word stagger */
+  .blurword{display:inline-block;opacity:0;filter:blur(10px);transform:translateY(28px);transition:opacity .7s ease,transform .7s ease,filter .7s ease;will-change:transform,filter,opacity;}
+  .blurword.in{opacity:1;filter:blur(0);transform:none;}
+
+  /* Hover lift */
+  .lift{transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease;}
+  .lift:hover{transform:translateY(-4px);}
+
+  /* Product card image bg tint */
+  .photo-frame{
+    background:
+      radial-gradient(80% 80% at 50% 50%, rgba(214,169,74,0.08), transparent 70%),
+      linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  }
+
+  /* Text selection color */
+  ::selection{background:rgba(214,169,74,0.35);color:#fff;}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.6rem 1rem;font-size:.875rem;font-weight:500;}
+  .btn-primary{background:#fff;color:#0a0908;}
+  .btn-primary:hover{background:#f6f1e6;}
+  .btn-amber{background:linear-gradient(180deg, #e9c878, #b9892b); color:#1b1304;}
+  .btn-amber:hover{filter:brightness(1.05);}
+
+  /* Glass input */
+  .input-glass{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.12);
+    color:#f6f1e6;
+    border-radius:9999px;
+    padding:.7rem 1rem;
+    width:100%;
+    outline:none;
+  }
+  .input-glass:focus{border-color:rgba(214,169,74,0.6);}
+
+  /* SVG icon base */
+  .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+</head>
+<body class="bg-bg text-ink antialiased">
+
+<!-- ========================= NAVBAR ========================= -->
+<header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 lg:px-16 py-3">
+  <div class="flex items-center justify-between gap-4">
+    <!-- Logo -->
+    <a href="#top" class="flex items-center gap-2">
+      <span class="liquid-glass-strong rounded-full h-11 w-11 grid place-items-center">
+        <span class="font-heading italic text-xl text-amber-300">R</span>
+      </span>
+      <span class="hidden md:inline font-heading italic text-xl tracking-tight">Rijal</span>
+    </a>
+    <!-- Center pill nav -->
+    <nav class="hidden md:flex liquid-glass rounded-full px-1.5 py-1 items-center gap-0.5">
+      <a href="#top"      class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Home</a>
+      <a href="#shop"     class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Shop</a>
+      <a href="#standard" class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Standard</a>
+      <a href="#story"    class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">About</a>
+      <a href="#ritual"   class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Ritual</a>
+      <a href="#shop" class="ml-1 inline-flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium hover:bg-ink">
+        Get Yours
+        <svg class="ic" viewBox="0 0 24 24" style="stroke:#0a0908"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      </a>
+    </nav>
+    <!-- Cart -->
+    <div class="flex items-center gap-2">
+      <button id="cart-btn" class="liquid-glass rounded-full px-3 py-2 text-xs font-medium font-body inline-flex items-center gap-2">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        <span id="cart-label">Cart · 0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="top"></div>
+
+<!-- ========================= HERO ========================= -->
+<section id="hero" class="relative overflow-hidden grain" style="height:1000px">
+  <!-- Fallback cinematic gradient -->
+  <div class="absolute inset-0 cine-hero z-0" style="opacity:0.88"></div>
+  <!-- Hero video -->
+  <video class="absolute inset-0 w-full h-full object-cover z-0" autoplay loop muted playsinline preload="auto"
+         poster="https://rijal.in/wp-content/uploads/2026/04/rijaloildis1.jpeg">
+    <source src="assets/hero.mp4" type="video/mp4" />
+  </video>
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 bg-black/45 z-0"></div>
+  <!-- Bottom + top fade -->
+  <div class="absolute left-0 right-0 bottom-0 z-0 pointer-events-none" style="height:340px;background:linear-gradient(to bottom, transparent, #0a0908);"></div>
+  <div class="absolute left-0 right-0 top-0 z-0 pointer-events-none" style="height:200px;background:linear-gradient(to top, transparent, rgba(10,9,8,0.7));"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex flex-col h-full px-6 md:px-12 lg:px-20" style="padding-top:170px;">
+    <!-- Badge pill -->
+    <div class="liquid-glass rounded-full px-1 py-1 inline-flex items-center gap-2 self-start reveal">
+      <span class="bg-white text-black rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide">NEW · 2026</span>
+      <span class="text-xs text-ink/85 pr-3 font-body">Inspired by Sunnah · Backed by Science.</span>
+    </div>
+
+    <!-- Blur-stagger heading -->
+    <h1 id="hero-h" class="mt-7 font-heading italic text-ink leading-[0.82] tracking-[-0.04em] max-w-[14ch]"
+        style="font-size:clamp(56px,9vw,128px);">
+    </h1>
+
+    <p class="mt-6 max-w-xl text-base md:text-lg text-ink/80 font-body font-light leading-snug reveal delay-200">
+      A grooming ritual for the modern Muslim man. Black seed, olive, neem — formulated in Kashmir, pressed for a beard worthy of its keeper.
+    </p>
+
+    <!-- CTAs -->
+    <div class="mt-8 flex items-center gap-3 reveal delay-300">
+      <a href="#shop" class="liquid-glass-strong rounded-full px-5 py-2.5 inline-flex items-center gap-2 text-sm font-medium">
+        Get Yours
+        <svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      </a>
+      <a href="#story" class="inline-flex items-center gap-2 text-sm font-medium text-ink/90 px-2 py-2.5">
+        <span class="liquid-glass-strong rounded-full w-8 h-8 grid place-items-center">
+          <svg class="ic" viewBox="0 0 24 24" style="fill:#fff;stroke:none"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        Watch the Story
+      </a>
+    </div>
+
+    <!-- Trusted cities + marquee pushed to bottom -->
+    <div class="mt-auto pb-10 pt-16">
+      <div class="flex items-center gap-3 mb-5 reveal delay-400">
+        <span class="liquid-glass rounded-full px-3.5 py-1 text-[11px] font-medium text-ink/80">Trusted across</span>
+        <span class="dot"></span>
+        <span class="text-[11px] uppercase tracking-[0.18em] text-ink/60 font-body">Kashmir · Delhi · Hyderabad · Lucknow · Riyadh</span>
+      </div>
+      <!-- Marquee -->
+      <div class="overflow-hidden" style="mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent)">
+        <div class="marquee-track flex items-center gap-12 md:gap-20 whitespace-nowrap">
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Sunnah</span><span class="dot"></span>
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Kashmir</span><span class="dot"></span>
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Black Seed</span><span class="dot"></span>
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Neem</span><span class="dot"></span>
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Olive</span><span class="dot"></span>
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Argan</span><span class="dot"></span>
+          <!-- duplicate for seamless loop -->
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Sunnah</span><span class="dot"></span>
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Kashmir</span><span class="dot"></span>
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Black Seed</span><span class="dot"></span>
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Neem</span><span class="dot"></span>
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Olive</span><span class="dot"></span>
+          <span class="font-heading italic text-2xl md:text-3xl text-white/90">Argan</span><span class="dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= THE RITUAL ========================= -->
+<section id="ritual" class="relative overflow-hidden grain" style="min-height:640px">
+  <div class="absolute inset-0 cine-mid" style="opacity:0.82"></div>
+  <div class="absolute inset-0 opacity-30 slowzoom"
+       style="background-image:url('https://rijal.in/wp-content/uploads/2026/04/rijaloilcomb1-768x1024.jpeg');background-size:cover;background-position:center;mix-blend-mode:luminosity;"></div>
+  <div class="absolute left-0 right-0 top-0 pointer-events-none" style="height:200px;background:linear-gradient(to bottom, #0a0908, transparent);"></div>
+  <div class="absolute left-0 right-0 bottom-0 pointer-events-none" style="height:200px;background:linear-gradient(to top, #0a0908, transparent);"></div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-6 md:px-12 py-32 text-center">
+    <span class="liquid-glass rounded-full px-3.5 py-1 text-[11px] font-medium text-ink/80 reveal">The Ritual</span>
+    <h2 class="mt-6 font-heading italic tracking-tight leading-[0.9] text-white reveal delay-100" style="font-size:clamp(40px,6.4vw,84px);">
+      You apply it. <em class="text-amber-300">It carries a legacy.</em>
+    </h2>
+    <p class="mt-6 max-w-2xl mx-auto text-white/70 font-body font-light text-base reveal delay-200">
+      Three drops, warmed between the palms, worked from root to tip. A morning practice that honours the Sunnah and the man who keeps it — supported by black seed, rosemary, olive, jojoba, argan and Vitamin&nbsp;E.
+    </p>
+    <div class="mt-10 flex items-center justify-center gap-3 reveal delay-300">
+      <a href="#shop" class="liquid-glass-strong rounded-full px-6 py-3 inline-flex items-center gap-2 text-sm font-medium">
+        Begin the Ritual
+        <svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      </a>
+      <a href="#standard" class="text-sm font-medium text-white/70 hover:text-white px-3 py-3">Read the Standard</a>
+    </div>
+
+    <!-- 3-step cards -->
+    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+      <div class="liquid-glass rounded-2xl p-6 reveal">
+        <div class="text-amber-300 font-heading italic text-3xl">01</div>
+        <div class="mt-2 font-heading italic text-2xl">Cleanse</div>
+        <p class="mt-2 text-white/65 text-sm font-light">Apply after a morning shower while the beard is slightly damp — for the deepest absorption.</p>
+      </div>
+      <div class="liquid-glass rounded-2xl p-6 reveal delay-100">
+        <div class="text-amber-300 font-heading italic text-3xl">02</div>
+        <div class="mt-2 font-heading italic text-2xl">Anoint</div>
+        <p class="mt-2 text-white/65 text-sm font-light">Three to five drops, warmed between the palms. Massage from root to tip; let the skin drink first.</p>
+      </div>
+      <div class="liquid-glass rounded-2xl p-6 reveal delay-200">
+        <div class="text-amber-300 font-heading italic text-3xl">03</div>
+        <div class="mt-2 font-heading italic text-2xl">Comb</div>
+        <p class="mt-2 text-white/65 text-sm font-light">Finish with the neem comb — anti-static, antibacterial, hand-cut in Baramulla. A perfectly tamed line.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= THE RIJAL STANDARD (chess rows) ========================= -->
+<section id="standard" class="relative px-6 md:px-12 lg:px-20 py-32">
+  <div id="ingredients" style="position:absolute;top:0;"></div>
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center gap-3 reveal">
+      <span class="liquid-glass rounded-full px-3.5 py-1 text-[11px] font-medium text-ink/80">The Rijal Standard</span>
+      <span class="dot"></span>
+      <span class="text-[11px] uppercase tracking-[0.18em] text-ink/55">Three pillars · One ritual</span>
+    </div>
+    <h2 class="mt-6 font-heading italic text-white tracking-tight leading-[0.9] max-w-3xl reveal delay-100" style="font-size:clamp(40px,6vw,76px);">
+      Heritage, refined. <em class="text-amber-300">Science, applied.</em>
+    </h2>
+
+    <!-- Row 1 — text left, image right -->
+    <div class="mt-20 grid md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-5 reveal">
+        <div class="text-[11px] uppercase tracking-[0.18em] text-amber-300 mb-3">01 · The Signature Blend</div>
+        <h3 class="font-heading italic text-4xl md:text-5xl leading-[0.95]">Designed to nourish. <br>Pressed to perform.</h3>
+        <p class="mt-5 text-white/65 font-body font-light text-sm md:text-base">
+          Black Seed and Olive — two ingredients rooted in the Sunnah — blended with Rosemary, Argan, Almond, Jojoba, Castor and Vitamin&nbsp;E. Lightweight, fast-absorbing, mildly musky. A modern formula with prophetic provenance.
+        </p>
+        <a href="#shop" class="mt-6 liquid-glass-strong rounded-full px-5 py-2.5 inline-flex items-center gap-2 text-sm font-medium">
+          Learn more
+          <svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+        <!-- Ingredient chips -->
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="liquid-glass rounded-full px-3 py-1 text-[11px]">Black Seed</span>
+          <span class="liquid-glass rounded-full px-3 py-1 text-[11px]">Olive</span>
+          <span class="liquid-glass rounded-full px-3 py-1 text-[11px]">Rosemary</span>
+          <span class="liquid-glass rounded-full px-3 py-1 text-[11px]">Argan</span>
+          <span class="liquid-glass rounded-full px-3 py-1 text-[11px]">Almond</span>
+          <span class="liquid-glass rounded-full px-3 py-1 text-[11px]">Jojoba</span>
+          <span class="liquid-glass rounded-full px-3 py-1 text-[11px]">Castor</span>
+          <span class="liquid-glass rounded-full px-3 py-1 text-[11px]">Vitamin E</span>
+        </div>
+      </div>
+      <div class="md:col-span-7 reveal delay-200">
+        <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/3] photo-frame relative">
+          <img src="https://rijal.in/wp-content/uploads/2025/08/WhatsApp-Image-2026-02-21-at-10.40.41-PM.jpeg"
+               alt="Rijal Beard Oil"
+               class="absolute inset-0 w-full h-full object-cover"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="absolute inset-0 hidden items-center justify-center stripe-placeholder">[ product · beard oil ]</div>
+          <div class="absolute left-4 bottom-4 right-4 flex items-end justify-between">
+            <div class="liquid-glass rounded-full px-3 py-1 text-[11px]">Signature Beard Oil · 30ml</div>
+            <div class="liquid-glass-strong rounded-full px-3 py-1 text-[11px] inline-flex items-center gap-2">
+              <span class="line-through text-white/50">₹599</span>
+              <span class="text-amber-300 font-medium">₹399</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2 — image left, text right -->
+    <div class="mt-24 grid md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-7 md:order-1 reveal">
+        <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/3] photo-frame relative">
+          <img src="https://rijal.in/wp-content/uploads/2026/04/rijalcomb6-683x1024.jpeg"
+               alt="Neem Wood Comb"
+               class="absolute inset-0 w-full h-full object-cover"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="absolute inset-0 hidden items-center justify-center stripe-placeholder">[ product · neem comb ]</div>
+          <div class="absolute left-4 bottom-4 right-4 flex items-end justify-between">
+            <div class="liquid-glass rounded-full px-3 py-1 text-[11px]">Artisanal Neem Wood Comb</div>
+            <div class="liquid-glass-strong rounded-full px-3 py-1 text-[11px] inline-flex items-center gap-2">
+              <span class="line-through text-white/50">₹299</span>
+              <span class="text-amber-300 font-medium">₹199</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="md:col-span-5 md:order-2 reveal delay-200">
+        <div class="text-[11px] uppercase tracking-[0.18em] text-amber-300 mb-3">02 · Artisanal Tooling</div>
+        <h3 class="font-heading italic text-4xl md:text-5xl leading-[0.95]">Hand-cut neem. <br>A line worth keeping.</h3>
+        <p class="mt-5 text-white/65 font-body font-light text-sm md:text-base">
+          Naturally antibacterial. Static-free. Each comb is shaped, sanded and finished by hand in Baramulla — built to glide through the thickest beard and stimulate the skin beneath it.
+        </p>
+        <a href="#shop" class="mt-6 liquid-glass-strong rounded-full px-5 py-2.5 inline-flex items-center gap-2 text-sm font-medium">
+          See how it's made
+          <svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Row 3 — text left, image right -->
+    <div class="mt-24 grid md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-5 reveal">
+        <div class="text-[11px] uppercase tracking-[0.18em] text-amber-300 mb-3">03 · The Grooming Duo</div>
+        <h3 class="font-heading italic text-4xl md:text-5xl leading-[0.95]">Two tools. <br>One ritual.</h3>
+        <p class="mt-5 text-white/65 font-body font-light text-sm md:text-base">
+          Pair the oil with the comb for even distribution, maximum absorption and a perfectly tamed finish. Inspired by Sunnah. Engineered for the everyday.
+        </p>
+        <a href="#shop" class="mt-6 liquid-glass-strong rounded-full px-5 py-2.5 inline-flex items-center gap-2 text-sm font-medium">
+          Shop the duo · ₹499
+          <svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </div>
+      <div class="md:col-span-7 reveal delay-200">
+        <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/3] photo-frame relative">
+          <img src="https://rijal.in/wp-content/uploads/2026/04/rijaloilcomb1-768x1024.jpeg"
+               alt="Beard Oil + Neem Comb Combo"
+               class="absolute inset-0 w-full h-full object-cover"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="absolute inset-0 hidden items-center justify-center stripe-placeholder">[ product · combo ]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= SHOP ========================= -->
+<section id="shop" class="relative px-6 md:px-12 lg:px-20 py-24">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-end justify-between flex-wrap gap-4">
+      <div>
+        <div class="flex items-center gap-3 reveal">
+          <span class="liquid-glass rounded-full px-3.5 py-1 text-[11px] font-medium text-ink/80">Trending</span>
+          <span class="dot"></span>
+          <span class="text-[11px] uppercase tracking-[0.18em] text-ink/55">The Rijal catalogue</span>
+        </div>
+        <h2 class="mt-5 font-heading italic text-white tracking-tight leading-[0.9] max-w-2xl reveal delay-100" style="font-size:clamp(36px,5.4vw,68px);">
+          Carry the legacy. <em class="text-amber-300">Wear it daily.</em>
+        </h2>
+      </div>
+      <!-- Filter chips -->
+      <div class="flex flex-wrap gap-2 reveal delay-200" id="filters">
+        <button data-filter="all"   class="filter-chip liquid-glass-strong rounded-full px-3.5 py-1.5 text-xs font-medium">All</button>
+        <button data-filter="oil"   class="filter-chip liquid-glass rounded-full px-3.5 py-1.5 text-xs font-medium">Beard Oil</button>
+        <button data-filter="comb"  class="filter-chip liquid-glass rounded-full px-3.5 py-1.5 text-xs font-medium">Comb</button>
+        <button data-filter="combo" class="filter-chip liquid-glass rounded-full px-3.5 py-1.5 text-xs font-medium">Combo</button>
+      </div>
+    </div>
+    <!-- Product grid (rendered by JS) -->
+    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="grid"></div>
+  </div>
+</section>
+
+<!-- ========================= WHY RIJAL ========================= -->
+<section id="benefits" class="relative px-6 md:px-12 lg:px-20 py-24">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center gap-3 reveal">
+      <span class="liquid-glass rounded-full px-3.5 py-1 text-[11px] font-medium text-ink/80">Why Rijal</span>
+      <span class="dot"></span>
+      <span class="text-[11px] uppercase tracking-[0.18em] text-ink/55">Six commitments</span>
+    </div>
+    <h2 class="mt-5 font-heading italic text-white tracking-tight leading-[0.9] max-w-3xl reveal delay-100" style="font-size:clamp(36px,5.4vw,68px);">
+      The difference is in <em class="text-amber-300">the discipline.</em>
+    </h2>
+
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="liquid-glass rounded-2xl p-7 lift reveal">
+        <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        </div>
+        <div class="mt-5 font-heading italic text-2xl">Passionate about work</div>
+        <p class="mt-2 text-white/65 text-sm font-light">Enthusiasm for what we do — felt in every bottle, every comb, every parcel.</p>
+      </div>
+      <div class="liquid-glass rounded-2xl p-7 lift reveal delay-100">
+        <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M12 2 4 7v10l8 5 8-5V7l-8-5z"/><path d="M4 7l8 5 8-5"/><path d="M12 12v10"/></svg>
+        </div>
+        <div class="mt-5 font-heading italic text-2xl">Quality products</div>
+        <p class="mt-2 text-white/65 text-sm font-light">Premium materials, methodical formulation. How well a product satisfies — that's the only metric.</p>
+      </div>
+      <div class="liquid-glass rounded-2xl p-7 lift reveal delay-200">
+        <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0z"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg>
+        </div>
+        <div class="mt-5 font-heading italic text-2xl">Innovation Solutions</div>
+        <p class="mt-2 text-white/65 text-sm font-light">New concepts — and new ways of using existing ones. Tradition, but never standing still.</p>
+      </div>
+      <div class="liquid-glass rounded-2xl p-7 lift reveal">
+        <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg>
+        </div>
+        <div class="mt-5 font-heading italic text-2xl">Customer satisfaction</div>
+        <p class="mt-2 text-white/65 text-sm font-light">Happy customers, delighted by the service. That's the bar — and the only one we keep.</p>
+      </div>
+      <div class="liquid-glass rounded-2xl p-7 lift reveal delay-100">
+        <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/></svg>
+        </div>
+        <div class="mt-5 font-heading italic text-2xl">Simplicity, by design</div>
+        <p class="mt-2 text-white/65 text-sm font-light">We minimise complexity in the routine — so the ritual stays sacred, not strenuous.</p>
+      </div>
+      <div class="liquid-glass rounded-2xl p-7 lift reveal delay-200">
+        <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-12a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 7.5-8 12-8 12z"/></svg>
+        </div>
+        <div class="mt-5 font-heading italic text-2xl">Creative team</div>
+        <p class="mt-2 text-white/65 text-sm font-light">A small team of craftsmen, designers and writers — encouraging creativity at every step.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= STATS ========================= -->
+<section class="relative overflow-hidden grain" style="min-height:520px">
+  <div class="absolute inset-0 cine-stats" style="filter:saturate(0);opacity:0.82"></div>
+  <div class="absolute inset-0 opacity-25 slowzoom"
+       style="background-image:url('https://rijal.in/wp-content/uploads/2026/04/PHOTO-2026-04-14-15-30-50.jpg');background-size:cover;background-position:center;filter:saturate(0);mix-blend-mode:luminosity;"></div>
+  <div class="absolute left-0 right-0 top-0 pointer-events-none" style="height:200px;background:linear-gradient(to bottom, #0a0908, transparent);"></div>
+  <div class="absolute left-0 right-0 bottom-0 pointer-events-none" style="height:200px;background:linear-gradient(to top, #0a0908, transparent);"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-28">
+    <div class="liquid-glass rounded-3xl p-10 md:p-14 reveal">
+      <!-- Stat numbers -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6 text-center md:text-left">
+        <div>
+          <div class="font-heading italic leading-[0.9] text-white" style="font-size:clamp(48px,6vw,84px);">98<span class="text-amber-300">%</span></div>
+          <div class="mt-2 text-white/60 font-body font-light text-xs md:text-sm uppercase tracking-[0.18em]">Customer satisfaction</div>
+        </div>
+        <div>
+          <div class="font-heading italic leading-[0.9] text-white" style="font-size:clamp(48px,6vw,84px);">1000<span class="text-amber-300">+</span></div>
+          <div class="mt-2 text-white/60 font-body font-light text-xs md:text-sm uppercase tracking-[0.18em]">Items shipped</div>
+        </div>
+        <div>
+          <div class="font-heading italic leading-[0.9] text-white" style="font-size:clamp(48px,6vw,84px);">8<span class="text-amber-300">+</span></div>
+          <div class="mt-2 text-white/60 font-body font-light text-xs md:text-sm uppercase tracking-[0.18em]">Sunnah-rooted oils</div>
+        </div>
+        <div>
+          <div class="font-heading italic leading-[0.9] text-white" style="font-size:clamp(48px,6vw,84px);">100<span class="text-amber-300">%</span></div>
+          <div class="mt-2 text-white/60 font-body font-light text-xs md:text-sm uppercase tracking-[0.18em]">Free shipping · India</div>
+        </div>
+      </div>
+      <!-- Trust badges -->
+      <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="liquid-glass rounded-2xl p-4 flex items-center gap-3">
+          <div class="liquid-glass-strong rounded-full w-9 h-9 grid place-items-center flex-shrink-0">
+            <svg class="ic" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg>
+          </div>
+          <div>
+            <div class="text-sm font-medium">Secure Payment</div>
+            <div class="text-[11px] text-white/55 font-light">Encrypted transactions</div>
+          </div>
+        </div>
+        <div class="liquid-glass rounded-2xl p-4 flex items-center gap-3">
+          <div class="liquid-glass-strong rounded-full w-9 h-9 grid place-items-center flex-shrink-0">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/></svg>
+          </div>
+          <div>
+            <div class="text-sm font-medium">Free Shipping</div>
+            <div class="text-[11px] text-white/55 font-light">All across India</div>
+          </div>
+        </div>
+        <div class="liquid-glass rounded-2xl p-4 flex items-center gap-3">
+          <div class="liquid-glass-strong rounded-full w-9 h-9 grid place-items-center flex-shrink-0">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/></svg>
+          </div>
+          <div>
+            <div class="text-sm font-medium">Delivered with care</div>
+            <div class="text-[11px] text-white/55 font-light">Hand-packed in Baramulla</div>
+          </div>
+        </div>
+        <div class="liquid-glass rounded-2xl p-4 flex items-center gap-3">
+          <div class="liquid-glass-strong rounded-full w-9 h-9 grid place-items-center flex-shrink-0">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 16 0v4a3 3 0 0 1-3 3h-1v-7h4"/><path d="M4 12v4a3 3 0 0 0 3 3h1v-7H4"/></svg>
+          </div>
+          <div>
+            <div class="text-sm font-medium">Excellent service</div>
+            <div class="text-[11px] text-white/55 font-light">Dedicated support</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= TESTIMONIALS ========================= -->
+<section class="relative px-6 md:px-12 lg:px-20 py-24">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center gap-3 reveal">
+      <span class="liquid-glass rounded-full px-3.5 py-1 text-[11px] font-medium text-ink/80">What they say</span>
+      <span class="dot"></span>
+      <span class="text-[11px] uppercase tracking-[0.18em] text-ink/55">From the brothers who keep the ritual</span>
+    </div>
+    <h2 class="mt-5 font-heading italic text-white tracking-tight leading-[0.9] max-w-3xl reveal delay-100" style="font-size:clamp(36px,5.4vw,68px);">
+      Don't take our word. <em class="text-amber-300">Take theirs.</em>
+    </h2>
+
+    <div class="mt-12 grid md:grid-cols-3 gap-5">
+      <article class="liquid-glass rounded-2xl p-8 lift reveal">
+        <div class="font-heading italic text-amber-300 text-3xl leading-none">"</div>
+        <p class="mt-2 text-white/85 font-body font-light text-sm leading-relaxed italic">
+          I'm really impressed with the quality. Everything I've ordered feels durable and exactly as described. Rare to find a shop that consistently hits the mark.
+        </p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="liquid-glass-strong rounded-full w-9 h-9 grid place-items-center font-heading italic flex-shrink-0">A</div>
+          <div>
+            <div class="text-sm font-medium">Arsalan</div>
+            <div class="text-[11px] text-white/50 font-light">Customer · Srinagar</div>
+          </div>
+        </div>
+      </article>
+      <article class="liquid-glass rounded-2xl p-8 lift reveal delay-100">
+        <div class="font-heading italic text-amber-300 text-3xl leading-none">"</div>
+        <p class="mt-2 text-white/85 font-body font-light text-sm leading-relaxed italic">
+          Quick question about my order — the support was incredibly helpful. You can tell they actually care about their customers. Highly recommended.
+        </p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="liquid-glass-strong rounded-full w-9 h-9 grid place-items-center font-heading italic flex-shrink-0">N</div>
+          <div>
+            <div class="text-sm font-medium">Noman</div>
+            <div class="text-[11px] text-white/50 font-light">Customer · Delhi</div>
+          </div>
+        </div>
+      </article>
+      <article class="liquid-glass rounded-2xl p-8 lift reveal delay-200">
+        <div class="font-heading italic text-amber-300 text-3xl leading-none">"</div>
+        <p class="mt-2 text-white/85 font-body font-light text-sm leading-relaxed italic">
+          Fast shipping, beautiful packaging. Items arrived sooner than expected and in perfect condition. I'll definitely be back for more.
+        </p>
+        <div class="mt-6 flex items-center gap-3">
+          <div class="liquid-glass-strong rounded-full w-9 h-9 grid place-items-center font-heading italic flex-shrink-0">N</div>
+          <div>
+            <div class="text-sm font-medium">Naseem</div>
+            <div class="text-[11px] text-white/50 font-light">Customer · Lucknow</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= FOUNDER / STORY ========================= -->
+<section id="story" class="relative px-6 md:px-12 lg:px-20 py-24">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-12 gap-10 items-center">
+    <div class="md:col-span-7 reveal">
+      <div class="text-[11px] uppercase tracking-[0.18em] text-amber-300">From the founder</div>
+      <h2 class="mt-3 font-heading italic text-white tracking-tight leading-[0.9]" style="font-size:clamp(40px,6vw,80px);">
+        "We don't sell <em class="text-amber-300">products.</em> We pass on a legacy."
+      </h2>
+      <p class="mt-6 max-w-2xl text-white/70 font-body font-light text-base">
+        At Rijal, heritage meets modern lifestyle. Founded in Kashmir, we believe true confidence comes from more than appearance — it comes from how you express yourself every day. Each Rijal product is thoughtfully crafted in India, blending comfort, durability and elegance.
+      </p>
+      <div class="mt-6 flex items-center gap-3">
+        <div class="liquid-glass-strong rounded-full w-12 h-12 grid place-items-center font-heading italic text-xl flex-shrink-0">AH</div>
+        <div>
+          <div class="text-sm font-medium">Abdul Hanan</div>
+          <div class="text-[11px] text-white/50 font-light">Founder · Rijal Store · Baramulla, J&amp;K</div>
+        </div>
+      </div>
+    </div>
+    <div class="md:col-span-5 reveal delay-200">
+      <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/5] photo-frame relative">
+        <img src="https://rijal.in/wp-content/uploads/2026/04/PHOTO-2026-04-14-15-30-50.jpg"
+             alt="Founder portrait"
+             class="absolute inset-0 w-full h-full object-cover"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="absolute inset-0 hidden items-center justify-center stripe-placeholder">[ founder portrait · kashmir ]</div>
+        <div class="absolute left-4 bottom-4 right-4">
+          <div class="liquid-glass rounded-2xl p-4">
+            <div class="text-[11px] uppercase tracking-[0.18em] text-amber-300">Made in</div>
+            <div class="font-heading italic text-2xl">Kashmir, India.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= CTA + NEWSLETTER + FOOTER ========================= -->
+<section id="cta" class="relative overflow-hidden grain">
+  <div class="absolute inset-0 cine-cta" style="opacity:0.82"></div>
+  <div class="absolute inset-0 opacity-30 slowzoom"
+       style="background-image:url('https://rijal.in/wp-content/uploads/2026/04/rijaloilcomb1-768x1024.jpeg');background-size:cover;background-position:center;mix-blend-mode:luminosity;"></div>
+  <div class="absolute left-0 right-0 top-0 pointer-events-none" style="height:200px;background:linear-gradient(to bottom, #0a0908, transparent);"></div>
+  <div class="absolute left-0 right-0 bottom-0 pointer-events-none" style="height:200px;background:linear-gradient(to top, #0a0908, transparent);"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-28 text-center">
+    <span class="liquid-glass rounded-full px-3.5 py-1 text-[11px] font-medium text-ink/80 reveal">Join the community</span>
+    <h2 class="mt-6 font-heading italic text-white tracking-tight leading-[0.85] reveal delay-100" style="font-size:clamp(48px,8vw,112px);">
+      Discover your <em class="text-amber-300">perfect look.</em>
+    </h2>
+    <p class="mt-6 max-w-xl mx-auto text-white/70 font-body font-light text-base reveal delay-200">
+      Subscribe for exclusive updates and offers on premium grooming and lifestyle goods that enhance your identity.
+    </p>
+
+    <form id="signup" class="mt-10 max-w-lg mx-auto flex items-center gap-2 reveal delay-300"
+          onsubmit="event.preventDefault(); handleSignup(this);">
+      <div class="liquid-glass rounded-full p-1.5 flex items-center gap-1 w-full">
+        <input type="email" required placeholder="your@email.com"
+               class="bg-transparent outline-none px-4 py-2 text-sm w-full placeholder:text-white/40 font-body" />
+        <button type="submit" class="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium inline-flex items-center gap-2">
+          Join
+          <svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </button>
+      </div>
+    </form>
+
+    <div class="mt-6 flex items-center justify-center gap-3 reveal delay-300">
+      <a href="#shop" class="bg-white text-black rounded-full px-6 py-3 text-sm font-medium hover:bg-ink transition-colors">Shop Now</a>
+      <a href="#contact" class="text-sm font-medium text-white/70 hover:text-white px-2 py-3">Contact us</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="contact" class="relative z-10 border-t border-white/10 px-6 md:px-12 lg:px-20 py-12">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="liquid-glass-strong rounded-full h-10 w-10 grid place-items-center">
+            <span class="font-heading italic text-amber-300 text-xl">R</span>
+          </span>
+          <span class="font-heading italic text-2xl">Rijal</span>
+        </div>
+        <p class="mt-4 text-white/55 text-sm font-light max-w-xs">Inspired by Sunnah. Backed by Science. A Kashmiri grooming and apparel house.</p>
+      </div>
+      <div>
+        <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Shop</div>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li><a href="#shop" class="hover:text-white transition-colors">Beard Oil</a></li>
+          <li><a href="#shop" class="hover:text-white transition-colors">Comb</a></li>
+          <li><a href="#shop" class="hover:text-white transition-colors">Combo Pack</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Studio</div>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li><a href="#story"    class="hover:text-white transition-colors">About</a></li>
+          <li><a href="#standard" class="hover:text-white transition-colors">The Rijal Standard</a></li>
+          <li><a href="#ritual"   class="hover:text-white transition-colors">The Ritual</a></li>
+          <li><a href="#contact"  class="hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Reach us</div>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li>+91&nbsp;9103&nbsp;998&nbsp;116</li>
+          <li>rijalstore1212@gmail.com</li>
+          <li>Baramulla, Jammu &amp; Kashmir, India</li>
+          <li><a href="https://www.instagram.com/rijal.store1" target="_blank" class="hover:text-white transition-colors">@rijal.store1</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-white/45">
+      <div>© 2026 Rijal. All rights reserved.</div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+        <a href="#" class="hover:text-white">Shipping</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Toast notification -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] liquid-glass-strong rounded-full px-5 py-3 text-sm font-medium opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+<!-- ========================= JS ========================= -->
+<script>
+  // Hero BlurText stagger
+  (function(){
+    const el = document.getElementById('hero-h');
+    const text = "Inspired by Sunnah. Backed by Science.";
+    el.innerHTML = text.split(' ').map((w, i) =>
+      `<span class="blurword" style="transition-delay:${i * 120}ms">${w}&nbsp;</span>`
+    ).join('');
+    requestAnimationFrame(() => {
+      el.querySelectorAll('.blurword').forEach(s => s.classList.add('in'));
+    });
+  })();
+
+  // Scroll reveal via IntersectionObserver
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Products data
+  const products = [
+    {
+      id: 'oil', cat: 'oil',
+      name: 'Rijal Beard Oil',
+      img: 'https://rijal.in/wp-content/uploads/2025/08/WhatsApp-Image-2026-02-21-at-10.40.41-PM.jpeg',
+      priceWas: 599, price: 399,
+      badge: 'Bestseller', tag: 'Sunnah-rooted', stock: true,
+      copy: 'Repair. Nourish. Grow. Black Seed + Olive at the heart.'
+    },
+    {
+      id: 'combo', cat: 'combo',
+      name: 'Beard Oil + Neem Comb · Combo',
+      img: 'https://rijal.in/wp-content/uploads/2026/03/WhatsApp-Image-2026-03-17-at-5.03.14-PM.jpeg',
+      priceWas: 798, price: 499,
+      badge: 'Best value', tag: 'Two pieces', stock: true,
+      copy: 'The complete daily ritual — oil and comb, paired.'
+    },
+    {
+      id: 'comb', cat: 'comb',
+      name: 'Rijal Wooden Comb',
+      img: 'https://rijal.in/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-20-at-11.06.59-PM.jpeg',
+      priceWas: 299, price: 199,
+      badge: 'Hand-cut', tag: '100% Neem', stock: true,
+      copy: 'Anti-static, antibacterial. Hand-cut in Baramulla.'
+    },
+  ];
+
+  function rupee(n) { return '₹' + n.toLocaleString('en-IN'); }
+
+  function card(p) {
+    const stockChip = p.stock
+      ? `<span class="liquid-glass-strong rounded-full px-3 py-1 text-[11px] font-medium inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>In stock</span>`
+      : `<span class="liquid-glass rounded-full px-3 py-1 text-[11px] font-medium text-white/70 inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>Out of stock</span>`;
+    const cta = p.stock
+      ? `<button data-id="${p.id}" class="add-cart liquid-glass-strong rounded-full px-4 py-2 text-xs font-medium inline-flex items-center gap-2">Add to cart <svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></button>`
+      : `<button data-id="${p.id}" class="notify liquid-glass rounded-full px-4 py-2 text-xs font-medium inline-flex items-center gap-2">Notify me <svg class="ic" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>`;
+
+    return `
+      <article class="lift liquid-glass rounded-2xl overflow-hidden flex flex-col" data-cat="${p.cat}">
+        <div class="aspect-[4/3] photo-frame relative overflow-hidden">
+          <img src="${p.img}" alt="${p.name}"
+               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="absolute inset-0 hidden items-center justify-center stripe-placeholder">[ ${p.name} ]</div>
+          <div class="absolute top-3 left-3">${stockChip}</div>
+          <div class="absolute top-3 right-3 liquid-glass rounded-full px-3 py-1 text-[11px]">${p.badge}</div>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2">
+            <div class="font-heading italic text-2xl leading-tight">${p.name}</div>
+            <div class="text-right shrink-0">
+              <div class="text-[11px] text-white/45 line-through font-light">${rupee(p.priceWas)}</div>
+              <div class="text-amber-400 font-medium">${rupee(p.price)}</div>
+            </div>
+          </div>
+          <p class="mt-2 text-white/60 text-sm font-light flex-1">${p.copy}</p>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="text-[11px] uppercase tracking-[0.18em] text-white/40">${p.tag}</span>
+            ${cta}
+          </div>
+        </div>
+      </article>`;
+  }
+
+  let cartCount = 0;
+  const grid = document.getElementById('grid');
+
+  function renderGrid(filter) {
+    const items = products.filter(p => filter === 'all' || p.cat === filter);
+    grid.innerHTML = items.map(card).join('');
+
+    grid.querySelectorAll('.add-cart').forEach(b => b.addEventListener('click', e => {
+      const p = products.find(x => x.id === e.currentTarget.dataset.id);
+      cartCount++;
+      document.getElementById('cart-label').textContent = `Cart · ${cartCount}`;
+      toast(`Added ${p.name} · ${rupee(p.price)}`);
+    }));
+    grid.querySelectorAll('.notify').forEach(b => b.addEventListener('click', e => {
+      const p = products.find(x => x.id === e.currentTarget.dataset.id);
+      toast(`We'll notify you when ${p.name} is back.`);
+    }));
+  }
+
+  renderGrid('all');
+
+  // Filter chip logic
+  document.querySelectorAll('.filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(b => {
+        b.classList.remove('liquid-glass-strong');
+        b.classList.add('liquid-glass');
+      });
+      btn.classList.add('liquid-glass-strong');
+      btn.classList.remove('liquid-glass');
+      renderGrid(btn.dataset.filter);
+    });
+  });
+
+  // Toast helper
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(window.__toast);
+    window.__toast = setTimeout(() => { t.style.opacity = '0'; }, 2200);
+  }
+
+  // Newsletter form
+  function handleSignup(form) {
+    const email = form.querySelector('input').value;
+    form.querySelector('input').value = '';
+    toast(`Welcome to Rijal · we'll write to ${email}.`);
+  }
+</script>
+
+<!-- ========================= 3D BOTTLE ========================= -->
+<canvas id="bottle3d" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
+
+<!-- GSAP must load before the ES module below -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- Three.js r160 via ES module importmap — guaranteed GLTFLoader, no namespace hacks -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader }      from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const gsap = window.gsap;
+const ScrollTrigger = window.ScrollTrigger;
+if (!gsap || !ScrollTrigger) { console.error('[Rijal] GSAP or ScrollTrigger not ready'); }
+else gsap.registerPlugin(ScrollTrigger);
+
+// ── Renderer ──────────────────────────────────────────────────────────────────
+const canvas = document.getElementById('bottle3d');
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight, false);
+renderer.setClearColor(0x0a0908, 1);
+renderer.outputColorSpace  = THREE.SRGBColorSpace;
+renderer.toneMapping       = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.88; // darker exposure — env map is already dark
+
+// ── Environment map — warm studio reflections for metallic surfaces ───────────
+// PMREMGenerator bakes a RoomEnvironment into a cube map so PBR materials
+// pick up ambient reflections without needing extra scene lights for that.
+// ── Scene + Camera ─────────────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x0a0908, 0.055);
+
+// Dark warm equirectangular env map — metallic edges reflect near-black,
+// picking up only the amber highlight, so silhouettes dissolve into #0a0908.
+const pmrem = new THREE.PMREMGenerator(renderer);
+pmrem.compileEquirectangularShader();
+{
+  const ew = 1024, eh = 512;
+  const ec = document.createElement('canvas');
+  ec.width = ew; ec.height = eh;
+  const ex = ec.getContext('2d');
+  ex.fillStyle = '#060402';                          // near-black base
+  ex.fillRect(0, 0, ew, eh);
+  // single warm amber light bloom — upper-left, like a candle across the room
+  const eg = ex.createRadialGradient(ew*0.18, eh*0.28, 0, ew*0.18, eh*0.28, ew*0.22);
+  eg.addColorStop(0,   'rgba(214,169,74,0.65)');
+  eg.addColorStop(0.5, 'rgba(180,120,30,0.18)');
+  eg.addColorStop(1,   'rgba(0,0,0,0)');
+  ex.fillStyle = eg; ex.fillRect(0, 0, ew, eh);
+  // faint warm ground-bounce from below
+  const eg2 = ex.createRadialGradient(ew*0.5, eh*0.85, 0, ew*0.5, eh*0.85, ew*0.25);
+  eg2.addColorStop(0,   'rgba(160,90,20,0.22)');
+  eg2.addColorStop(1,   'rgba(0,0,0,0)');
+  ex.fillStyle = eg2; ex.fillRect(0, 0, ew, eh);
+
+  const et = new THREE.CanvasTexture(ec);
+  et.mapping = THREE.EquirectangularReflectionMapping;
+  scene.environment = pmrem.fromEquirectangular(et).texture;
+  et.dispose();
+}
+pmrem.dispose();
+const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(0, 0, 6);
+
+// ── Lighting — no ambient so edges fall dark; only directed amber sculpting ────
+// No AmbientLight — edges face the dark env map and dissolve into #0a0908.
+
+const key = new THREE.DirectionalLight(0xffd080, 1.8); // warm amber key, not white
+key.position.set(3, 5, 5);
+scene.add(key);
+
+const rim = new THREE.PointLight(0xd6a94a, 3.2, 14); // amber product rim
+rim.position.set(-4, 2, -2);
+scene.add(rim);
+
+const fill = new THREE.PointLight(0xb86820, 1.2, 10); // deep amber under-fill
+fill.position.set(2, -4, 3);
+scene.add(fill);
+
+// ── Bottle group ───────────────────────────────────────────────────────────────
+const bottleGroup = new THREE.Group();
+scene.add(bottleGroup);
+
+// ── Amber glow pool — additive plane that pools under the bottle ───────────────
+{
+  const sz = 256;
+  const gc = document.createElement('canvas');
+  gc.width = gc.height = sz;
+  const gx = gc.getContext('2d');
+  const gr = gx.createRadialGradient(sz/2, sz/2, 0, sz/2, sz/2, sz/2);
+  gr.addColorStop(0,   'rgba(214,169,74,0.45)');
+  gr.addColorStop(0.4, 'rgba(214,169,74,0.12)');
+  gr.addColorStop(1,   'rgba(0,0,0,0)');
+  gx.fillStyle = gr;
+  gx.fillRect(0, 0, sz, sz);
+  const pool = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.2, 3.2),
+    new THREE.MeshBasicMaterial({
+      map: new THREE.CanvasTexture(gc),
+      transparent: true, depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    })
+  );
+  pool.rotation.x = -Math.PI / 2;
+  pool.position.y = -1.25;
+  bottleGroup.add(pool);
+}
+
+// ── Visible fallback (amber gold) — shown immediately, replaced when GLB loads ─
+function makeFallback() {
+  const g = new THREE.Group();
+  const bodyMat = new THREE.MeshStandardMaterial({
+    color: 0xc8a040, metalness: 0.72, roughness: 0.32, envMapIntensity: 2.0,
+  });
+  const capMat = new THREE.MeshStandardMaterial({
+    color: 0xd6a94a, metalness: 0.92, roughness: 0.18, envMapIntensity: 2.0,
+  });
+  const body     = new THREE.Mesh(new THREE.CylinderGeometry(0.52, 0.52, 1.55, 64), bodyMat);
+  const shoulder = new THREE.Mesh(new THREE.CylinderGeometry(0.52, 0.24, 0.34, 64), bodyMat);
+  const neck     = new THREE.Mesh(new THREE.CylinderGeometry(0.21, 0.21, 0.34, 32), bodyMat);
+  const cap      = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 0.38, 32), capMat);
+  shoulder.position.y = 0.94;
+  neck.position.y     = 1.29;
+  cap.position.y      = 1.63;
+  g.add(body, shoulder, neck, cap);
+  return g;
+}
+
+const fallback = makeFallback();
+bottleGroup.add(fallback);
+
+// ── Load real GLB ──────────────────────────────────────────────────────────────
+new GLTFLoader().load(
+  'assets/bottle.glb',
+  (gltf) => {
+    bottleGroup.remove(fallback);
+    const model = gltf.scene;
+
+    model.traverse((child) => {
+      if (!child.isMesh) return;
+      const mats = Array.isArray(child.material) ? child.material : [child.material];
+      mats.forEach(mat => {
+        if (!mat.isMeshStandardMaterial && !mat.isMeshPhysicalMaterial) return;
+        // Tune for warm-dark ambient: semi-gloss metallic picks up env nicely
+        mat.roughness       = 0.38;
+        mat.metalness       = 0.72;
+        mat.envMapIntensity = 1.1; // low — dark env so we want subtle reflections
+        mat.needsUpdate     = true;
+      });
+    });
+
+    // Normalize to 2.2 units tall, centered
+    const box    = new THREE.Box3().setFromObject(model);
+    const size   = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    const scale  = 2.2 / Math.max(size.y, 0.0001);
+    model.scale.setScalar(scale);
+    model.position.sub(center.multiplyScalar(scale));
+    bottleGroup.add(model);
+    console.log('[Rijal] bottle.glb loaded ✓  scale:', scale.toFixed(3));
+  },
+  (xhr) => { if (xhr.total) console.log(`[Rijal] GLB ${Math.round(xhr.loaded / xhr.total * 100)}%`); },
+  (err) => { console.warn('[Rijal] GLB failed — fallback active.', err.message || err); }
+);
+
+// ── Resize ─────────────────────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight, false);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+});
+
+// ── Animated state ─────────────────────────────────────────────────────────────
+// autoRotY is time-driven (idle spin); rotY is scroll-driven (GSAP timeline).
+// They add together so both work simultaneously without conflict.
+const state = {
+  posX: 2.0, posY: 0.0, posZ: 0,
+  rotX: 0, rotY: 0, rotZ: 0,   // rotY:0 = logo front-face toward camera
+  autoRotY: 0,
+  scale: 1,
+  glow: 0,
+  bobAmp: 0.12,
+  bobPhase: 0,
+};
+
+function applyState() {
+  bottleGroup.position.set(
+    state.posX,
+    state.posY + Math.sin(state.bobPhase) * state.bobAmp,
+    state.posZ
+  );
+  // scroll rotation + continuous idle spin combined
+  bottleGroup.rotation.set(state.rotX, state.rotY + state.autoRotY, state.rotZ);
+  bottleGroup.scale.setScalar(state.scale);
+  rim.intensity  = 4.0 + state.glow * 5.0;
+  fill.intensity = 1.8 + state.glow * 2.5;
+}
+
+// Entry drift-up
+if (gsap) {
+  gsap.from(state, { posY: -0.8, duration: 1.8, ease: 'power3.out', onUpdate: applyState });
+}
+
+// RAF loop — drives bob, idle spin, and render every frame
+let last = performance.now();
+(function tick(now) {
+  const dt   = Math.min((now - last) / 1000, 0.05); // cap dt to avoid jumps on tab switch
+  last = now;
+  state.bobPhase += dt * 0.9;
+  // Idle spin decays to 0 as glow→1 (CTA section), so logo parks front-facing.
+  // When glow=0: full spin. When glow=1: decay existing offset + no new spin.
+  state.autoRotY  = state.autoRotY * (1 - state.glow * dt * 4)
+                  + dt * 0.18 * (1 - state.glow);
+  applyState();
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+})(last);
+
+// ── Scroll-driven cinematic arc — single timeline, single ScrollTrigger ────────
+if (gsap && ScrollTrigger) {
+  const tl = gsap.timeline({ defaults: { ease: 'none' } });
+
+  tl.to(state, { posX: -1.5, posY: 0.0, posZ: 0.4, rotY: Math.PI * 1.1, rotX: 0.05, bobAmp: 0.04, scale: 1.05 });
+  tl.to(state, { posX: -0.4, posY: -0.1, posZ: 0.6, rotX: 0.5, rotY: Math.PI * 1.45, scale: 1.18, bobAmp: 0.02 });
+  tl.to(state, { posX: 0.0,  posY: 0.1,  posZ: 0.8, rotX: 0.0, rotY: Math.PI * 2,    scale: 1.3,  glow: 1, bobAmp: 0.06 });
+
+  ScrollTrigger.create({
+    animation: tl,
+    trigger: document.documentElement,
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 2,
+  });
+
+  gsap.utils.toArray('#standard .liquid-glass.rounded-full').forEach((el, i) => {
+    gsap.from(el, { y: 18, opacity: 0, delay: i * 0.04,
+      scrollTrigger: { trigger: '#ingredients', start: 'top 70%', end: 'top 30%', scrub: 1.2 } });
+  });
+
+  gsap.utils.toArray('#benefits .liquid-glass.rounded-2xl').forEach((el, i) => {
+    gsap.from(el, { y: 30, opacity: 0, delay: i * 0.05,
+      scrollTrigger: { trigger: '#benefits', start: 'top 80%', end: 'top 20%', scrub: 1.2 } });
+  });
+}
+</script>
+
+</body>
+</html>
