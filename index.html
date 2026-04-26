@@ -6,7 +6,7 @@
 <title>Rijal — Inspired by Sunnah. Backed by Science.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap&font-display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -229,6 +229,43 @@
 
   /* SVG icon base */
   .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* ── Performance & smoothness ─────────────────────────────── */
+  html{scroll-behavior:smooth;}
+  /* Promote animated layers to GPU composite — prevents repaint */
+  .marquee-track{will-change:transform;}
+  .slowzoom{will-change:transform;}
+  /* Reveal already has will-change set inline via blurword; add to parent */
+  .reveal{contain:layout style;}
+
+  /* Hero: fluid height — 1000px is too tall on small screens */
+  #hero{height:clamp(680px,100svh,1100px)!important;}
+
+  /* Product video containers */
+  .product-video{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+
+  /* ── Mobile optimisations ─────────────────────────────────── */
+  @media(max-width:767px){
+    /* Halve the blur — biggest perf win on mobile GPU */
+    .liquid-glass{
+      backdrop-filter:blur(4px);
+      -webkit-backdrop-filter:blur(4px);
+    }
+    .liquid-glass-strong{
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+    /* Grain SVG filter is expensive on mobile — reduce opacity */
+    .grain::after{opacity:.18;}
+    /* Chess row images: 16/9 on mobile reads better than 4/3 */
+    .aspect-\[4\/3\]{aspect-ratio:16/9;}
+    /* Marquee slightly slower on narrow screens */
+    .marquee-track{animation-duration:55s;}
+    /* Reduce slowzoom range on mobile */
+    .slowzoom{animation-duration:38s;}
+    /* Shimmer off on mobile — saves a composited layer */
+    .shimmer-text{animation:none;background:none;-webkit-background-clip:unset;background-clip:unset;color:#E8D8C4;}
+  }
 </style>
 </head>
 <body class="bg-bg text-ink antialiased">
@@ -426,7 +463,7 @@
       </div>
       <div class="md:col-span-7 reveal delay-200">
         <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/3] photo-frame relative">
-          <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+          <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline preload="none">
             <source src="assets/beardoil.mp4" type="video/mp4" />
           </video>
           <div class="absolute left-4 bottom-4 right-4 flex items-end justify-between">
@@ -444,7 +481,7 @@
     <div class="mt-24 grid md:grid-cols-12 gap-8 items-center">
       <div class="md:col-span-7 md:order-1 reveal">
         <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/3] photo-frame relative">
-          <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+          <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline preload="none">
             <source src="assets/comb.mp4" type="video/mp4" />
           </video>
           <div class="absolute left-4 bottom-4 right-4 flex items-end justify-between">
@@ -484,7 +521,7 @@
       </div>
       <div class="md:col-span-7 reveal delay-200">
         <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/3] photo-frame relative">
-          <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+          <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline preload="none">
             <source src="assets/combo.mp4" type="video/mp4" />
           </video>
         </div>
@@ -730,6 +767,7 @@
       <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/5] photo-frame relative">
         <img src="https://rijal.in/wp-content/uploads/2026/04/PHOTO-2026-04-14-15-30-50.jpg"
              alt="Founder portrait"
+             loading="lazy" decoding="async"
              class="absolute inset-0 w-full h-full object-cover"
              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
         <div class="absolute inset-0 hidden items-center justify-center stripe-placeholder">[ founder portrait · kashmir ]</div>
@@ -965,6 +1003,43 @@
     form.querySelector('input').value = '';
     toast(`Welcome to Rijal · we'll write to ${email}.`);
   }
+
+  // ── Lazy video: play only when in viewport, pause when out ──────────────────
+  (function(){
+    // All product videos (not hero — hero autoplays eagerly)
+    function initVideoLazy(){
+      const vids = document.querySelectorAll('section:not(#hero) video');
+      vids.forEach(v => {
+        v.pause();
+        v.preload = 'none';
+      });
+      if (!vids.length) return;
+      const vio = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            if (e.target.readyState === 0) e.target.load();
+            e.target.play().catch(() => {});
+          } else {
+            e.target.pause();
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '150px 0px' });
+      vids.forEach(v => vio.observe(v));
+    }
+    // Run after renderGrid() populates shop cards
+    requestAnimationFrame(() => requestAnimationFrame(initVideoLazy));
+  })();
+
+  // Re-attach video lazy observer after filter changes re-render the grid
+  const _origRenderGrid = window.renderGrid;
+  document.getElementById('filters').addEventListener('click', () => {
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.querySelectorAll('#grid video').forEach(v => {
+        v.pause(); v.preload = 'none';
+        v.load(); v.play().catch(() => {});
+      });
+    }));
+  });
 </script>
 
 <!-- ========================= 3D BOTTLE ========================= -->
@@ -987,7 +1062,9 @@
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-console.log('[Rijal 3D] module start');
+
+const isMobile = window.matchMedia('(max-width:767px)').matches
+              || /Mobi|Android/i.test(navigator.userAgent);
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
@@ -997,7 +1074,7 @@ else gsap.registerPlugin(ScrollTrigger);
 // ── Renderer ──────────────────────────────────────────────────────────────────
 const canvas = document.getElementById('bottle3d');
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(isMobile ? Math.min(window.devicePixelRatio, 1) : Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight, false);
 renderer.setClearColor(0x1a0508, 1);
 renderer.outputColorSpace  = THREE.SRGBColorSpace;
@@ -1009,7 +1086,8 @@ renderer.toneMappingExposure = 1.1;
 // pick up ambient reflections without needing extra scene lights for that.
 // ── Scene + Camera ─────────────────────────────────────────────────────────────
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x1a0508, 0.055);
+// Fog skipped on mobile — expensive fragment shader cost
+if (!isMobile) scene.fog = new THREE.FogExp2(0x1a0508, 0.055);
 
 // Dark warm equirectangular env map — metallic edges reflect near-black,
 // picking up only the burgundy accent, so silhouettes dissolve into #1a0508.
@@ -1192,19 +1270,24 @@ if (gsap) {
   gsap.from(state, { posY: -0.8, duration: 1.8, ease: 'power3.out', onUpdate: applyState });
 }
 
+// Tab-hidden pause: stop rendering when user switches away — saves battery
+let rafPaused = false;
+document.addEventListener('visibilitychange', () => {
+  rafPaused = document.hidden;
+});
+
 // RAF loop — drives bob, idle spin, and render every frame
 let last = performance.now();
 (function tick(now) {
-  const dt   = Math.min((now - last) / 1000, 0.05); // cap dt to avoid jumps on tab switch
+  requestAnimationFrame(tick);
+  if (rafPaused) return;                             // don't render when tab hidden
+  const dt = Math.min((now - last) / 1000, 0.05);   // cap dt to avoid jumps on tab switch
   last = now;
   state.bobPhase += dt * 0.9;
-  // Idle spin decays to 0 as glow→1 (CTA section), so logo parks front-facing.
-  // When glow=0: full spin. When glow=1: decay existing offset + no new spin.
   state.autoRotY  = state.autoRotY * (1 - state.glow * dt * 4)
                   + dt * 0.18 * (1 - state.glow);
   applyState();
   renderer.render(scene, camera);
-  requestAnimationFrame(tick);
 })(last);
 
 // ── Scroll-driven cinematic arc — single timeline, single ScrollTrigger ────────
@@ -1220,7 +1303,7 @@ if (gsap && ScrollTrigger) {
     trigger: document.documentElement,
     start: 'top top',
     end: 'bottom bottom',
-    scrub: 2,
+    scrub: isMobile ? 1 : 2,   // tighter scrub on mobile = snappier feel
   });
 
   gsap.utils.toArray('#standard .liquid-glass.rounded-full').forEach((el, i) => {
