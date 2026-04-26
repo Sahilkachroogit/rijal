@@ -426,11 +426,9 @@
       </div>
       <div class="md:col-span-7 reveal delay-200">
         <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/3] photo-frame relative">
-          <img src="https://rijal.in/wp-content/uploads/2025/08/WhatsApp-Image-2026-02-21-at-10.40.41-PM.jpeg"
-               alt="Rijal Beard Oil"
-               class="absolute inset-0 w-full h-full object-cover"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <div class="absolute inset-0 hidden items-center justify-center stripe-placeholder">[ product · beard oil ]</div>
+          <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+            <source src="assets/beardoil.mp4" type="video/mp4" />
+          </video>
           <div class="absolute left-4 bottom-4 right-4 flex items-end justify-between">
             <div class="liquid-glass rounded-full px-3 py-1 text-[11px]">Signature Beard Oil · 30ml</div>
             <div class="liquid-glass-strong rounded-full px-3 py-1 text-[11px] inline-flex items-center gap-2">
@@ -446,11 +444,9 @@
     <div class="mt-24 grid md:grid-cols-12 gap-8 items-center">
       <div class="md:col-span-7 md:order-1 reveal">
         <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/3] photo-frame relative">
-          <img src="https://rijal.in/wp-content/uploads/2026/04/rijalcomb6-683x1024.jpeg"
-               alt="Neem Wood Comb"
-               class="absolute inset-0 w-full h-full object-cover"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <div class="absolute inset-0 hidden items-center justify-center stripe-placeholder">[ product · neem comb ]</div>
+          <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+            <source src="assets/comb.mp4" type="video/mp4" />
+          </video>
           <div class="absolute left-4 bottom-4 right-4 flex items-end justify-between">
             <div class="liquid-glass rounded-full px-3 py-1 text-[11px]">Artisanal Neem Wood Comb</div>
             <div class="liquid-glass-strong rounded-full px-3 py-1 text-[11px] inline-flex items-center gap-2">
@@ -488,11 +484,9 @@
       </div>
       <div class="md:col-span-7 reveal delay-200">
         <div class="liquid-glass rounded-3xl overflow-hidden aspect-[4/3] photo-frame relative">
-          <img src="https://rijal.in/wp-content/uploads/2026/04/rijaloilcomb1-768x1024.jpeg"
-               alt="Beard Oil + Neem Comb Combo"
-               class="absolute inset-0 w-full h-full object-cover"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <div class="absolute inset-0 hidden items-center justify-center stripe-placeholder">[ product · combo ]</div>
+          <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+            <source src="assets/combo.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </div>
@@ -863,7 +857,7 @@
     {
       id: 'oil', cat: 'oil',
       name: 'Rijal Beard Oil',
-      img: 'https://rijal.in/wp-content/uploads/2025/08/WhatsApp-Image-2026-02-21-at-10.40.41-PM.jpeg',
+      video: 'assets/beardoil.mp4',
       priceWas: 599, price: 399,
       badge: 'Bestseller', tag: 'Sunnah-rooted', stock: true,
       copy: 'Repair. Nourish. Grow. Black Seed + Olive at the heart.'
@@ -871,7 +865,7 @@
     {
       id: 'combo', cat: 'combo',
       name: 'Beard Oil + Neem Comb · Combo',
-      img: 'https://rijal.in/wp-content/uploads/2026/03/WhatsApp-Image-2026-03-17-at-5.03.14-PM.jpeg',
+      video: 'assets/combo.mp4',
       priceWas: 798, price: 499,
       badge: 'Best value', tag: 'Two pieces', stock: true,
       copy: 'The complete daily ritual — oil and comb, paired.'
@@ -879,7 +873,7 @@
     {
       id: 'comb', cat: 'comb',
       name: 'Rijal Wooden Comb',
-      img: 'https://rijal.in/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-20-at-11.06.59-PM.jpeg',
+      video: 'assets/comb.mp4',
       priceWas: 299, price: 199,
       badge: 'Hand-cut', tag: '100% Neem', stock: true,
       copy: 'Anti-static, antibacterial. Hand-cut in Baramulla.'
@@ -899,10 +893,9 @@
     return `
       <article class="lift liquid-glass rounded-2xl overflow-hidden flex flex-col" data-cat="${p.cat}">
         <div class="aspect-[4/3] photo-frame relative overflow-hidden">
-          <img src="${p.img}" alt="${p.name}"
-               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <div class="absolute inset-0 hidden items-center justify-center stripe-placeholder">[ ${p.name} ]</div>
+          <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+            <source src="${p.video}" type="video/mp4" />
+          </video>
           <div class="absolute top-3 left-3">${stockChip}</div>
           <div class="absolute top-3 right-3 liquid-glass rounded-full px-3 py-1 text-[11px]">${p.badge}</div>
         </div>
