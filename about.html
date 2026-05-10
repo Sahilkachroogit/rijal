@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About — Rijal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          heading: ["'Instrument Serif'", "serif"],
+          body: ["'Barlow'", "sans-serif"],
+        },
+        colors: {
+          bg: "#1a0508",
+          ink: "#E8D8C4",
+          amber: { 50:"#f5ede4", 300:"#C7B7A3", 400:"#C7B7A3", 500:"#6D2932", 600:"#561C24" },
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root{--bg:#1a0508;--ink:#E8D8C4;--amber:#6D2932;}
+  html,body{background:#1a0508;color:var(--ink);}
+  body{font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;}
+  section{position:relative;z-index:2;}
+  header{position:relative;z-index:50;}
+  #toast{z-index:60;}
+  .font-heading{font-family:'Instrument Serif',serif;}
+  .font-body{font-family:'Barlow',sans-serif;}
+  .liquid-glass{background:rgba(255,255,255,0.025);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,0.08);position:relative;overflow:hidden;}
+  .liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.15) 80%,rgba(255,255,255,.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .liquid-glass-strong{background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:none;box-shadow:4px 4px 4px rgba(0,0,0,.05),inset 0 1px 1px rgba(255,255,255,.18);position:relative;overflow:hidden;}
+  .liquid-glass-strong::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.22) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.22) 80%,rgba(255,255,255,.55) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .grain::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");mix-blend-mode:overlay;opacity:.35;}
+  .cine-hero{background:radial-gradient(60% 80% at 30% 20%,rgba(109,41,50,.28),transparent 60%),radial-gradient(50% 70% at 80% 90%,rgba(86,28,36,.18),transparent 60%),linear-gradient(180deg,#200a0e 0%,#1a0508 60%,#110305 100%);}
+  .cine-mid{background:radial-gradient(80% 60% at 50% 50%,rgba(109,41,50,.18),transparent 70%),linear-gradient(180deg,#1e0809,#1a0508 60%,#130408);}
+  .cine-stats{background:radial-gradient(60% 80% at 70% 50%,rgba(255,255,255,.04),transparent 70%),linear-gradient(180deg,#1a0508,#0e0205 60%,#1a0508);}
+  .cine-cta{background:radial-gradient(60% 80% at 30% 80%,rgba(109,41,50,.28),transparent 60%),radial-gradient(80% 60% at 80% 20%,rgba(86,28,36,.14),transparent 60%),linear-gradient(180deg,#1c0609 0%,#1a0508 100%);}
+  @keyframes slowzoom{0%{transform:scale(1.05);}50%{transform:scale(1.18);}100%{transform:scale(1.05);}}
+  .slowzoom{animation:slowzoom 28s ease-in-out infinite;will-change:transform;}
+  .dot{width:4px;height:4px;border-radius:9999px;background:rgba(255,255,255,0.4);display:inline-block;flex-shrink:0;}
+  .reveal{opacity:0;transform:translateY(28px);filter:blur(8px);transition:opacity .9s ease,transform .9s ease,filter .9s ease;contain:layout style;}
+  .reveal.in{opacity:1;transform:none;filter:blur(0);}
+  .reveal.delay-100{transition-delay:.1s;}
+  .reveal.delay-200{transition-delay:.2s;}
+  .reveal.delay-300{transition-delay:.3s;}
+  .lift{transition:transform .5s cubic-bezier(.2,.7,.2,1);}
+  .lift:hover{transform:translateY(-4px);}
+  ::selection{background:rgba(109,41,50,0.45);color:#E8D8C4;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.6rem 1rem;font-size:.875rem;font-weight:500;}
+  .btn-primary{background:#fff;color:#1a0508;}
+  .btn-primary:hover{background:#E8D8C4;}
+  .btn-amber{background:linear-gradient(180deg,#6D2932,#3D0F17);color:#E8D8C4;}
+  .btn-amber:hover{filter:brightness(1.08);}
+  .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  html{scroll-behavior:smooth;}
+  @media(max-width:767px){.liquid-glass{backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}.liquid-glass-strong{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}.grain::after{opacity:.18;}}
+</style>
+</head>
+<body class="bg-bg text-ink antialiased">
+
+<!-- NAVBAR -->
+<header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 lg:px-16 py-3">
+  <div class="flex items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2">
+      <span class="liquid-glass-strong rounded-full h-11 w-11 grid place-items-center">
+        <span class="font-heading italic text-xl text-amber-300">R</span>
+      </span>
+      <span class="hidden md:inline font-heading italic text-xl tracking-tight">Rijal</span>
+    </a>
+    <nav class="hidden md:flex liquid-glass rounded-full px-1.5 py-1 items-center gap-0.5">
+      <a href="/" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Home</a>
+      <a href="/shop.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Shop</a>
+      <a href="/about.html" class="px-3 py-2 text-sm font-medium text-ink font-body rounded-full border-b border-white/30">About</a>
+      <a href="/contact.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Contact</a>
+      <a href="/shop.html" class="ml-1 inline-flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium hover:bg-ink">
+        Get Yours
+        <svg class="ic" viewBox="0 0 24 24" style="stroke:#1a0508"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      </a>
+    </nav>
+    <button onclick="document.getElementById('mob-nav').classList.toggle('hidden')" class="md:hidden liquid-glass rounded-full p-2.5" aria-label="Menu">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div id="mob-nav" class="hidden md:hidden mt-2 liquid-glass rounded-2xl px-4 py-3 flex-col gap-1">
+    <a href="/" class="block py-2 text-sm font-medium font-body hover:text-white">Home</a>
+    <a href="/shop.html" class="block py-2 text-sm font-medium font-body hover:text-white">Shop</a>
+    <a href="/about.html" class="block py-2 text-sm font-medium font-body text-white">About</a>
+    <a href="/contact.html" class="block py-2 text-sm font-medium font-body hover:text-white">Contact</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="cine-hero grain relative overflow-hidden" style="min-height:60vh">
+    <img src="https://rijal.in/wp-content/uploads/2025/03/about-us.jpg"
+         class="absolute inset-0 w-full h-full object-cover opacity-20 slowzoom" alt="Rijal Brand — Kashmir" />
+    <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(26,5,8,0.5) 0%,transparent 40%,rgba(26,5,8,0.8) 100%);"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center h-full pt-44 pb-24 px-6 text-center">
+      <p class="font-body text-amber-300 uppercase tracking-[0.3em] text-xs mb-4 reveal">Our Story</p>
+      <h1 class="font-heading text-5xl md:text-7xl text-ink reveal delay-100">
+        We are Passionate<br/><em>About Our Work</em>
+      </h1>
+    </div>
+  </section>
+
+  <!-- ABOUT COPY -->
+  <section class="cine-mid py-24 px-6">
+    <div class="max-w-3xl mx-auto">
+      <p class="font-body text-ink/80 text-lg leading-relaxed mb-8 reveal">
+        Rijal was born in the mountains of Kashmir — a place where heritage runs deep, faith shapes identity, and every craft carries meaning. We are a premium grooming and apparel brand built for the modern Muslim man who wants to honour the Sunnah without compromising on quality.
+      </p>
+      <p class="font-body text-ink/80 text-lg leading-relaxed mb-8 reveal delay-100">
+        We started with one conviction: that grooming is not vanity — it is discipline. The Prophet ﷺ urged his companions to groom their beards with care, and we took that seriously. Every product we formulate draws from prophetic ingredients — black seed, olive, neem — and pairs them with modern botanical science to deliver results worthy of the intention behind them.
+      </p>
+      <p class="font-body text-ink/80 text-lg leading-relaxed reveal delay-200">
+        We are passionate about our craft and committed to building lasting relationships with our customers. Each Rijal product is thoughtfully made in India, blending comfort, durability, and elegance — because you deserve nothing less. From Baramulla to your doorstep, we carry a legacy worth keeping.
+      </p>
+    </div>
+  </section>
+
+  <!-- CORE VALUES -->
+  <section class="cine-stats py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-heading text-4xl md:text-5xl text-center text-ink mb-4 reveal">
+        We strive to provide our customers with the <em>highest quality</em>
+      </h2>
+      <p class="text-center text-ink/55 font-body mb-16 reveal delay-100">Six commitments that define every product we make.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="liquid-glass rounded-2xl p-6 lift reveal">
+          <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center mb-4">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          </div>
+          <h3 class="font-heading text-xl text-ink mb-2">Passionate about work</h3>
+          <p class="font-body text-white/65 text-sm">Enthusiasm in every bottle, every comb, every parcel we send.</p>
+        </div>
+        <div class="liquid-glass rounded-2xl p-6 lift reveal delay-100">
+          <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center mb-4">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M12 2 4 7v10l8 5 8-5V7l-8-5z"/><path d="M4 7l8 5 8-5"/><path d="M12 12v10"/></svg>
+          </div>
+          <h3 class="font-heading text-xl text-ink mb-2">Quality products</h3>
+          <p class="font-body text-white/65 text-sm">Premium materials. Methodical formulation. No corners cut.</p>
+        </div>
+        <div class="liquid-glass rounded-2xl p-6 lift reveal delay-200">
+          <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center mb-4">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0z"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg>
+          </div>
+          <h3 class="font-heading text-xl text-ink mb-2">Innovation</h3>
+          <p class="font-body text-white/65 text-sm">Tradition meets science. New ways of doing timeless things.</p>
+        </div>
+        <div class="liquid-glass rounded-2xl p-6 lift reveal">
+          <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center mb-4">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg>
+          </div>
+          <h3 class="font-heading text-xl text-ink mb-2">Customer satisfaction</h3>
+          <p class="font-body text-white/65 text-sm">Happy customers — delighted by the experience — is our only bar.</p>
+        </div>
+        <div class="liquid-glass rounded-2xl p-6 lift reveal delay-100">
+          <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center mb-4">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12h6"/></svg>
+          </div>
+          <h3 class="font-heading text-xl text-ink mb-2">Simplicity by design</h3>
+          <p class="font-body text-white/65 text-sm">Minimal steps, maximum results. The ritual stays sacred, not strenuous.</p>
+        </div>
+        <div class="liquid-glass rounded-2xl p-6 lift reveal delay-200">
+          <div class="liquid-glass-strong rounded-full w-11 h-11 grid place-items-center mb-4">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-12a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 7.5-8 12-8 12z"/></svg>
+          </div>
+          <h3 class="font-heading text-xl text-ink mb-2">Faith-driven identity</h3>
+          <p class="font-body text-white/65 text-sm">Every product is designed with faith at its core and craft at its hands.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="cine-cta py-24 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="font-body text-amber-300 uppercase tracking-[0.3em] text-xs reveal">Our Mission</span>
+      <h2 class="font-heading text-4xl md:text-6xl text-ink mt-4 mb-8 reveal delay-100">
+        We don't sell products.<br/><em>We pass on a legacy.</em>
+      </h2>
+      <p class="font-body text-ink/80 text-xl leading-relaxed mb-12 reveal delay-200">
+        At Rijal, our mission is to empower Muslim men to embrace their identity with confidence — through grooming products rooted in the Sunnah, and apparel that reflects the bold spirit of Kashmir. We exist to serve the man who understands that faith, discipline, and appearance are not separate — they are one.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 items-center reveal delay-300">
+        <span class="liquid-glass rounded-full px-4 py-2 font-body text-sm text-ink/80">Sunnah-rooted</span>
+        <span class="dot"></span>
+        <span class="liquid-glass rounded-full px-4 py-2 font-body text-sm text-ink/80">Kashmir crafted</span>
+        <span class="dot"></span>
+        <span class="liquid-glass rounded-full px-4 py-2 font-body text-sm text-ink/80">Science backed</span>
+        <span class="dot"></span>
+        <span class="liquid-glass rounded-full px-4 py-2 font-body text-sm text-ink/80">Free shipping India</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER QUOTE -->
+  <section class="cine-mid py-20 px-6">
+    <div class="max-w-2xl mx-auto text-center reveal">
+      <div class="liquid-glass-strong rounded-2xl p-10">
+        <div class="font-heading text-amber-300 text-5xl leading-none mb-4">"</div>
+        <p class="font-heading text-2xl md:text-3xl text-ink italic leading-relaxed mb-6">
+          We are passionate about our craft and build lasting relationships with our customers. Each product we make is a reflection of our faith, our land, and our commitment to quality.
+        </p>
+        <div class="flex items-center justify-center gap-3">
+          <div class="liquid-glass-strong rounded-full w-12 h-12 grid place-items-center font-heading italic text-xl">AH</div>
+          <div class="text-left">
+            <p class="font-body text-amber-300 tracking-widest text-sm uppercase">Abdul Hanan</p>
+            <p class="font-body text-ink/50 text-xs">CEO · Rijal Store · Baramulla, J&amp;K</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <section class="cine-cta grain relative overflow-hidden py-24 px-6 text-center">
+    <h2 class="font-heading text-4xl md:text-5xl text-ink mb-4 reveal">Begin your ritual today.</h2>
+    <p class="font-body text-ink/60 mb-8 reveal delay-100">Premium grooming, delivered free across India.</p>
+    <div class="flex flex-wrap gap-4 justify-center reveal delay-200">
+      <a href="/shop.html" class="btn btn-amber rounded-full px-8 py-3 text-base">Shop Now</a>
+      <a href="/contact.html" class="btn liquid-glass rounded-full px-8 py-3 text-base text-ink">Contact Us</a>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="relative z-10 cine-cta border-t border-white/10 px-6 md:px-12 lg:px-20 py-12">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="liquid-glass-strong rounded-full h-10 w-10 grid place-items-center"><span class="font-heading italic text-amber-300 text-xl">R</span></span>
+        <span class="font-heading italic text-2xl">Rijal</span>
+      </div>
+      <p class="mt-4 text-white/55 text-sm font-light max-w-xs">Inspired by Sunnah. Backed by Science. A Kashmiri grooming and apparel house.</p>
+    </div>
+    <div>
+      <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Shop</div>
+      <ul class="space-y-2 text-sm text-white/80">
+        <li><a href="/product/beard-oil.html" class="hover:text-white transition-colors">Beard Oil</a></li>
+        <li><a href="/product/comb.html" class="hover:text-white transition-colors">Comb</a></li>
+        <li><a href="/product/combo.html" class="hover:text-white transition-colors">Combo Pack</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Pages</div>
+      <ul class="space-y-2 text-sm text-white/80">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li><a href="/shop.html" class="hover:text-white transition-colors">Online Shop</a></li>
+        <li><a href="/about.html" class="hover:text-white transition-colors">About</a></li>
+        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Reach us</div>
+      <ul class="space-y-2 text-sm text-white/80">
+        <li>+91&nbsp;9103&nbsp;998&nbsp;116</li>
+        <li>rijalstore1212@gmail.com</li>
+        <li>Baramulla, Jammu &amp; Kashmir, India</li>
+        <li><a href="https://www.instagram.com/rijal.store1" target="_blank" rel="noopener" class="hover:text-white transition-colors">@rijal.store1</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-white/45">
+    <div>© 2026 Rijal. All rights reserved.</div>
+    <div class="flex items-center gap-4">
+      <a href="#" class="hover:text-white">Privacy</a>
+      <a href="#" class="hover:text-white">Terms</a>
+      <a href="#" class="hover:text-white">Shipping</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((e) => {
+    e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

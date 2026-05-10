@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact — Rijal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          heading: ["'Instrument Serif'", "serif"],
+          body: ["'Barlow'", "sans-serif"],
+        },
+        colors: {
+          bg: "#1a0508",
+          ink: "#E8D8C4",
+          amber: { 50:"#f5ede4", 300:"#C7B7A3", 400:"#C7B7A3", 500:"#6D2932", 600:"#561C24" },
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root{--bg:#1a0508;--ink:#E8D8C4;--amber:#6D2932;}
+  html,body{background:#1a0508;color:var(--ink);}
+  body{font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;}
+  section{position:relative;z-index:2;}
+  header{position:relative;z-index:50;}
+  #toast{z-index:60;}
+  .font-heading{font-family:'Instrument Serif',serif;}
+  .font-body{font-family:'Barlow',sans-serif;}
+  .liquid-glass{background:rgba(255,255,255,0.025);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,0.08);position:relative;overflow:hidden;}
+  .liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.15) 80%,rgba(255,255,255,.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .liquid-glass-strong{background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:none;box-shadow:4px 4px 4px rgba(0,0,0,.05),inset 0 1px 1px rgba(255,255,255,.18);position:relative;overflow:hidden;}
+  .liquid-glass-strong::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.22) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.22) 80%,rgba(255,255,255,.55) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .grain::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");mix-blend-mode:overlay;opacity:.35;}
+  .cine-hero{background:radial-gradient(60% 80% at 30% 20%,rgba(109,41,50,.28),transparent 60%),radial-gradient(50% 70% at 80% 90%,rgba(86,28,36,.18),transparent 60%),linear-gradient(180deg,#200a0e 0%,#1a0508 60%,#110305 100%);}
+  .cine-mid{background:radial-gradient(80% 60% at 50% 50%,rgba(109,41,50,.18),transparent 70%),linear-gradient(180deg,#1e0809,#1a0508 60%,#130408);}
+  .cine-cta{background:radial-gradient(60% 80% at 30% 80%,rgba(109,41,50,.28),transparent 60%),radial-gradient(80% 60% at 80% 20%,rgba(86,28,36,.14),transparent 60%),linear-gradient(180deg,#1c0609 0%,#1a0508 100%);}
+  .dot{width:4px;height:4px;border-radius:9999px;background:rgba(255,255,255,0.4);display:inline-block;flex-shrink:0;}
+  .reveal{opacity:0;transform:translateY(28px);filter:blur(8px);transition:opacity .9s ease,transform .9s ease,filter .9s ease;contain:layout style;}
+  .reveal.in{opacity:1;transform:none;filter:blur(0);}
+  .reveal.delay-100{transition-delay:.1s;}
+  .reveal.delay-200{transition-delay:.2s;}
+  @keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+  .shimmer-text{background:linear-gradient(90deg,rgba(232,216,196,1) 0%,rgba(199,183,163,1) 50%,rgba(232,216,196,1) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 6s linear infinite;}
+  ::selection{background:rgba(109,41,50,0.45);color:#E8D8C4;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.6rem 1rem;font-size:.875rem;font-weight:500;}
+  .btn-primary{background:#fff;color:#1a0508;}
+  .btn-primary:hover{background:#E8D8C4;}
+  .btn-amber{background:linear-gradient(180deg,#6D2932,#3D0F17);color:#E8D8C4;}
+  .btn-amber:hover{filter:brightness(1.08);}
+  .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  .field-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:.75rem;padding:.875rem 1rem;color:#E8D8C4;font-family:'Barlow',sans-serif;font-size:.9375rem;transition:border-color .2s;display:block;}
+  .field-input::placeholder{color:rgba(255,255,255,.25);}
+  .field-input:focus{outline:none;border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.06);}
+  .field-input.error{border-color:rgba(239,68,68,.5);}
+  html{scroll-behavior:smooth;}
+  @media(max-width:767px){.liquid-glass{backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}.liquid-glass-strong{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}.grain::after{opacity:.18;}.shimmer-text{animation:none;background:none;-webkit-background-clip:unset;background-clip:unset;color:#E8D8C4;}}
+</style>
+</head>
+<body class="bg-bg text-ink antialiased">
+
+<!-- NAVBAR -->
+<header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 lg:px-16 py-3">
+  <div class="flex items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2">
+      <span class="liquid-glass-strong rounded-full h-11 w-11 grid place-items-center">
+        <span class="font-heading italic text-xl text-amber-300">R</span>
+      </span>
+      <span class="hidden md:inline font-heading italic text-xl tracking-tight">Rijal</span>
+    </a>
+    <nav class="hidden md:flex liquid-glass rounded-full px-1.5 py-1 items-center gap-0.5">
+      <a href="/" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Home</a>
+      <a href="/shop.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Shop</a>
+      <a href="/about.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">About</a>
+      <a href="/contact.html" class="px-3 py-2 text-sm font-medium text-ink font-body rounded-full border-b border-white/30">Contact</a>
+      <a href="/shop.html" class="ml-1 inline-flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium hover:bg-ink">
+        Get Yours
+        <svg class="ic" viewBox="0 0 24 24" style="stroke:#1a0508"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      </a>
+    </nav>
+    <button onclick="document.getElementById('mob-nav').classList.toggle('hidden')" class="md:hidden liquid-glass rounded-full p-2.5" aria-label="Menu">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div id="mob-nav" class="hidden md:hidden mt-2 liquid-glass rounded-2xl px-4 py-3 flex-col gap-1">
+    <a href="/" class="block py-2 text-sm font-medium font-body hover:text-white">Home</a>
+    <a href="/shop.html" class="block py-2 text-sm font-medium font-body hover:text-white">Shop</a>
+    <a href="/about.html" class="block py-2 text-sm font-medium font-body hover:text-white">About</a>
+    <a href="/contact.html" class="block py-2 text-sm font-medium font-body text-white">Contact</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="cine-hero grain pt-40 pb-16 text-center">
+    <p class="font-body text-amber-300 uppercase tracking-[0.3em] text-xs mb-4 reveal">Reach Out</p>
+    <h1 class="font-heading text-6xl md:text-8xl shimmer-text reveal delay-100">Let's Connect</h1>
+    <p class="font-body text-ink/60 mt-4 text-lg reveal delay-200">We'd love to hear from you.</p>
+  </section>
+
+  <!-- TWO-COLUMN LAYOUT -->
+  <section class="cine-mid py-20 px-6">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+      <!-- LEFT: FORM -->
+      <div class="liquid-glass rounded-2xl p-8 reveal">
+        <h2 class="font-heading text-3xl text-ink mb-6">Send us a Message</h2>
+
+        <!-- Honeypot -->
+        <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" id="hp" />
+
+        <div id="contact-form">
+          <div class="mb-4">
+            <label for="cf-name" class="sr-only">Full Name</label>
+            <input type="text" id="cf-name" placeholder="Full Name *" class="field-input" autocomplete="name" />
+          </div>
+          <div class="mb-4">
+            <label for="cf-email" class="sr-only">Email Address</label>
+            <input type="email" id="cf-email" placeholder="Email Address *" class="field-input" autocomplete="email" />
+          </div>
+          <div class="mb-4">
+            <label for="cf-phone" class="sr-only">Phone (optional)</label>
+            <input type="tel" id="cf-phone" placeholder="Phone (optional)" class="field-input" autocomplete="tel" />
+          </div>
+          <div class="mb-6">
+            <label for="cf-message" class="sr-only">Your Message</label>
+            <textarea id="cf-message" placeholder="Your Message *" class="field-input h-32 resize-none"></textarea>
+          </div>
+          <p id="form-error" class="hidden text-red-400 text-sm mb-4 font-body"></p>
+          <button onclick="submitContact()" id="submit-btn"
+                  class="btn btn-amber w-full justify-center rounded-xl py-3 text-base">
+            Send Message
+          </button>
+        </div>
+
+        <div id="contact-success" class="hidden text-center py-8">
+          <div class="w-16 h-16 rounded-full bg-green-400/10 border border-green-400/30 flex items-center justify-center mx-auto mb-4">
+            <svg style="width:28px;height:28px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg>
+          </div>
+          <p class="font-heading text-2xl text-ink mb-2">Message Sent!</p>
+          <p class="font-body text-ink/60">We'll reply within 24 hours. Jazakallah Khair.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: WHATSAPP + DETAILS -->
+      <div class="flex flex-col gap-6 reveal delay-100">
+        <!-- WhatsApp CTA -->
+        <div class="liquid-glass-strong rounded-2xl p-8 text-center">
+          <p class="font-body text-amber-300 uppercase tracking-widest text-xs mb-3">Fastest Response</p>
+          <h3 class="font-heading text-3xl text-ink mb-4">Message Us on WhatsApp</h3>
+          <p class="font-body text-ink/60 mb-6">Get a reply within minutes.</p>
+          <a href="https://wa.me/919103998116?text=Hi%20Rijal%2C%20I%27d%20like%20to%20enquire%20about%20your%20products."
+             target="_blank" rel="noopener"
+             class="btn btn-primary rounded-xl px-8 py-3 text-base font-semibold">
+            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#25D366;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.101 1.516 5.824L.055 23.454a.5.5 0 0 0 .491.601l5.809-1.524A11.947 11.947 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.573 9.573 0 0 1-4.885-1.34l-.35-.208-3.626.951.968-3.536-.228-.363A9.555 9.555 0 0 1 2.4 12C2.4 6.698 6.698 2.4 12 2.4S21.6 6.698 21.6 12 17.302 21.6 12 21.6z"/></svg>
+            Open WhatsApp
+          </a>
+        </div>
+
+        <!-- Contact Details -->
+        <div class="liquid-glass rounded-2xl p-8 space-y-5">
+          <div class="flex items-start gap-4">
+            <div class="liquid-glass-strong rounded-full w-10 h-10 grid place-items-center flex-shrink-0">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.09 4.18 2 2 0 0 1 5.06 2h3a2 2 0 0 1 2 1.72c.13 1 .37 1.97.72 2.9a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.18-1.18a2 2 0 0 1 2.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <p class="font-body text-xs text-white/50 uppercase tracking-widest mb-1">Phone</p>
+              <a href="tel:+919103998116" class="font-body text-ink hover:text-white transition-colors">+91-9103998116</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="liquid-glass-strong rounded-full w-10 h-10 grid place-items-center flex-shrink-0">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <p class="font-body text-xs text-white/50 uppercase tracking-widest mb-1">Email</p>
+              <a href="mailto:rijalstore1212@gmail.com" class="font-body text-ink hover:text-white transition-colors">rijalstore1212@gmail.com</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="liquid-glass-strong rounded-full w-10 h-10 grid place-items-center flex-shrink-0">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <p class="font-body text-xs text-white/50 uppercase tracking-widest mb-1">Location</p>
+              <p class="font-body text-ink">Baramulla, Jammu &amp; Kashmir, India</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="liquid-glass-strong rounded-full w-10 h-10 grid place-items-center flex-shrink-0">
+              <svg class="ic" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+            <div>
+              <p class="font-body text-xs text-white/50 uppercase tracking-widest mb-1">Instagram</p>
+              <a href="https://www.instagram.com/rijal.store1" target="_blank" rel="noopener" class="font-body text-ink hover:text-white transition-colors">@rijal.store1</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="relative z-10 cine-cta border-t border-white/10 px-6 md:px-12 lg:px-20 py-12">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="liquid-glass-strong rounded-full h-10 w-10 grid place-items-center"><span class="font-heading italic text-amber-300 text-xl">R</span></span>
+        <span class="font-heading italic text-2xl">Rijal</span>
+      </div>
+      <p class="mt-4 text-white/55 text-sm font-light max-w-xs">Inspired by Sunnah. Backed by Science. A Kashmiri grooming and apparel house.</p>
+    </div>
+    <div>
+      <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Shop</div>
+      <ul class="space-y-2 text-sm text-white/80">
+        <li><a href="/product/beard-oil.html" class="hover:text-white transition-colors">Beard Oil</a></li>
+        <li><a href="/product/comb.html" class="hover:text-white transition-colors">Comb</a></li>
+        <li><a href="/product/combo.html" class="hover:text-white transition-colors">Combo Pack</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Pages</div>
+      <ul class="space-y-2 text-sm text-white/80">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li><a href="/shop.html" class="hover:text-white transition-colors">Online Shop</a></li>
+        <li><a href="/about.html" class="hover:text-white transition-colors">About</a></li>
+        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Reach us</div>
+      <ul class="space-y-2 text-sm text-white/80">
+        <li>+91&nbsp;9103&nbsp;998&nbsp;116</li>
+        <li>rijalstore1212@gmail.com</li>
+        <li>Baramulla, Jammu &amp; Kashmir, India</li>
+        <li><a href="https://www.instagram.com/rijal.store1" target="_blank" rel="noopener" class="hover:text-white transition-colors">@rijal.store1</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-white/45">
+    <div>© 2026 Rijal. All rights reserved.</div>
+    <div class="flex items-center gap-4">
+      <a href="#" class="hover:text-white">Privacy</a>
+      <a href="#" class="hover:text-white">Terms</a>
+      <a href="#" class="hover:text-white">Shipping</a>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] liquid-glass-strong rounded-full px-5 py-3 text-sm font-medium opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+<script>
+  const io = new IntersectionObserver((e) => {
+    e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(window.__toast);
+    window.__toast = setTimeout(() => { t.style.opacity = '0'; }, 2800);
+  }
+
+  async function submitContact() {
+    const hp = document.getElementById('hp').value;
+    if (hp) return; // honeypot triggered
+
+    const name    = document.getElementById('cf-name').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const phone   = document.getElementById('cf-phone').value.trim();
+    const message = document.getElementById('cf-message').value.trim();
+    const errEl   = document.getElementById('form-error');
+
+    errEl.classList.add('hidden');
+    ['cf-name','cf-email','cf-message'].forEach(id => document.getElementById(id).classList.remove('error'));
+
+    if (!name) { document.getElementById('cf-name').classList.add('error'); errEl.textContent = 'Please enter your name.'; errEl.classList.remove('hidden'); return; }
+    if (!email || !email.includes('@')) { document.getElementById('cf-email').classList.add('error'); errEl.textContent = 'Please enter a valid email.'; errEl.classList.remove('hidden'); return; }
+    if (!message) { document.getElementById('cf-message').classList.add('error'); errEl.textContent = 'Please enter a message.'; errEl.classList.remove('hidden'); return; }
+
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+      if (!res.ok) throw new Error();
+      document.getElementById('contact-form').classList.add('hidden');
+      document.getElementById('contact-success').classList.remove('hidden');
+    } catch {
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+      errEl.textContent = 'Something went wrong. Please try WhatsApp or email us directly.';
+      errEl.classList.remove('hidden');
+    }
+  }
+</script>
+</body>
+</html>

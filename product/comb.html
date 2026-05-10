@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Rijal Wooden Comb — Rijal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { heading: ["'Instrument Serif'", "serif"], body: ["'Barlow'", "sans-serif"] },
+        colors: { bg:"#1a0508", ink:"#E8D8C4", amber:{ 50:"#f5ede4", 300:"#C7B7A3", 400:"#C7B7A3", 500:"#6D2932", 600:"#561C24" } },
+      },
+    },
+  };
+</script>
+<style>
+  :root{--bg:#1a0508;--ink:#E8D8C4;--amber:#6D2932;}
+  html,body{background:#1a0508;color:var(--ink);}
+  body{font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;}
+  section{position:relative;z-index:2;}header{position:relative;z-index:50;}#toast{z-index:60;}
+  .font-heading{font-family:'Instrument Serif',serif;}.font-body{font-family:'Barlow',sans-serif;}
+  .liquid-glass{background:rgba(255,255,255,0.025);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,0.08);position:relative;overflow:hidden;}
+  .liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.15) 80%,rgba(255,255,255,.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .liquid-glass-strong{background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:none;box-shadow:4px 4px 4px rgba(0,0,0,.05),inset 0 1px 1px rgba(255,255,255,.18);position:relative;overflow:hidden;}
+  .liquid-glass-strong::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.22) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.22) 80%,rgba(255,255,255,.55) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .cine-hero{background:radial-gradient(60% 80% at 30% 20%,rgba(109,41,50,.28),transparent 60%),radial-gradient(50% 70% at 80% 90%,rgba(86,28,36,.18),transparent 60%),linear-gradient(180deg,#200a0e 0%,#1a0508 60%,#110305 100%);}
+  .cine-mid{background:radial-gradient(80% 60% at 50% 50%,rgba(109,41,50,.18),transparent 70%),linear-gradient(180deg,#1e0809,#1a0508 60%,#130408);}
+  .cine-stats{background:radial-gradient(60% 80% at 70% 50%,rgba(255,255,255,.04),transparent 70%),linear-gradient(180deg,#1a0508,#0e0205 60%,#1a0508);}
+  .cine-cta{background:radial-gradient(60% 80% at 30% 80%,rgba(109,41,50,.28),transparent 60%),radial-gradient(80% 60% at 80% 20%,rgba(86,28,36,.14),transparent 60%),linear-gradient(180deg,#1c0609 0%,#1a0508 100%);}
+  .reveal{opacity:0;transform:translateY(28px);filter:blur(8px);transition:opacity .9s ease,transform .9s ease,filter .9s ease;contain:layout style;}
+  .reveal.in{opacity:1;transform:none;filter:blur(0);}
+  .reveal.delay-100{transition-delay:.1s;}.reveal.delay-200{transition-delay:.2s;}
+  .photo-frame{background:radial-gradient(80% 80% at 50% 50%,rgba(86,28,36,.12),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));}
+  ::selection{background:rgba(109,41,50,0.45);color:#E8D8C4;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.6rem 1rem;font-size:.875rem;font-weight:500;}
+  .btn-primary{background:#fff;color:#1a0508;}.btn-primary:hover{background:#E8D8C4;}
+  .btn-amber{background:linear-gradient(180deg,#6D2932,#3D0F17);color:#E8D8C4;}.btn-amber:hover{filter:brightness(1.08);}
+  .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  .lift{transition:transform .5s cubic-bezier(.2,.7,.2,1);}.lift:hover{transform:translateY(-4px);}
+  html{scroll-behavior:smooth;}
+  @media(max-width:767px){.liquid-glass{backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}.liquid-glass-strong{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}}
+</style>
+</head>
+<body class="bg-bg text-ink antialiased">
+
+<header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 lg:px-16 py-3">
+  <div class="flex items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2"><span class="liquid-glass-strong rounded-full h-11 w-11 grid place-items-center"><span class="font-heading italic text-xl text-amber-300">R</span></span><span class="hidden md:inline font-heading italic text-xl tracking-tight">Rijal</span></a>
+    <nav class="hidden md:flex liquid-glass rounded-full px-1.5 py-1 items-center gap-0.5">
+      <a href="/" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Home</a>
+      <a href="/shop.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Shop</a>
+      <a href="/about.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">About</a>
+      <a href="/contact.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Contact</a>
+      <a href="/shop.html" class="ml-1 inline-flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium hover:bg-ink">Get Yours<svg class="ic" viewBox="0 0 24 24" style="stroke:#1a0508"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a href="/cart.html" class="relative liquid-glass rounded-full p-2.5 inline-flex items-center justify-center" aria-label="Cart"><svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span data-cart-count style="display:none" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-white text-[#1a0508] text-[10px] font-bold flex items-center justify-center leading-none"></span></a>
+      <button onclick="document.getElementById('mob-nav').classList.toggle('hidden')" class="md:hidden liquid-glass rounded-full p-2.5" aria-label="Menu"><svg class="ic" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+  <div id="mob-nav" class="hidden md:hidden mt-2 liquid-glass rounded-2xl px-4 py-3 flex-col gap-1">
+    <a href="/" class="block py-2 text-sm font-medium font-body hover:text-white">Home</a>
+    <a href="/shop.html" class="block py-2 text-sm font-medium font-body hover:text-white">Shop</a>
+    <a href="/about.html" class="block py-2 text-sm font-medium font-body hover:text-white">About</a>
+    <a href="/contact.html" class="block py-2 text-sm font-medium font-body hover:text-white">Contact</a>
+  </div>
+</header>
+
+<nav class="pt-28 pb-4 px-6 max-w-6xl mx-auto font-body text-sm text-white/40">
+  <a href="/" class="hover:text-ink transition-colors">Home</a><span class="mx-2">/</span>
+  <a href="/shop.html" class="hover:text-ink transition-colors">Shop</a><span class="mx-2">/</span>
+  <span class="text-ink">Rijal Wooden Comb</span>
+</nav>
+
+<main>
+  <section class="cine-hero py-10 px-6">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div>
+        <div class="photo-frame rounded-2xl overflow-hidden aspect-square mb-4 reveal">
+          <img id="main-img" src="https://rijal.in/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-20-at-11.06.59-PM.jpeg" alt="Rijal Wooden Comb — front view" class="w-full h-full object-cover transition-opacity duration-300" />
+        </div>
+        <div class="grid grid-cols-3 gap-3 reveal delay-100">
+          <button onclick="swapImg(this,'https://rijal.in/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-20-at-11.06.59-PM.jpeg','Comb front')" class="photo-frame rounded-xl overflow-hidden aspect-square ring-2 ring-white/20 ring-offset-1 ring-offset-[#1a0508]"><img src="https://rijal.in/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-20-at-11.06.59-PM.jpeg" alt="Comb — view 1" class="w-full h-full object-cover" /></button>
+          <button onclick="swapImg(this,'https://rijal.in/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-20-at-11.06.59-PMmmm.jpeg','Comb detail')" class="photo-frame rounded-xl overflow-hidden aspect-square ring-1 ring-white/10 ring-offset-1 ring-offset-[#1a0508]"><img src="https://rijal.in/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-20-at-11.06.59-PMmmm.jpeg" alt="Comb — view 2" class="w-full h-full object-cover" /></button>
+          <button onclick="swapImg(this,'https://rijal.in/wp-content/uploads/2026/04/rijalcomb6-683x1024.jpeg','Comb lifestyle')" class="photo-frame rounded-xl overflow-hidden aspect-square ring-1 ring-white/10 ring-offset-1 ring-offset-[#1a0508]"><img src="https://rijal.in/wp-content/uploads/2026/04/rijalcomb6-683x1024.jpeg" alt="Comb — view 3" class="w-full h-full object-cover" /></button>
+        </div>
+      </div>
+      <div class="pt-4 reveal delay-200">
+        <p class="font-body text-amber-300 uppercase tracking-[0.3em] text-xs mb-3">Grooming</p>
+        <h1 class="font-heading text-4xl md:text-5xl text-ink mb-3 leading-tight">Rijal Wooden Comb</h1>
+        <p class="font-body text-ink/60 text-lg italic mb-6">Artisanal Neem Wood Craftsmanship</p>
+        <div class="flex items-baseline gap-4 mb-4 flex-wrap">
+          <span class="font-body text-4xl font-semibold text-ink">₹199</span>
+          <span class="font-body text-xl text-white/40 line-through">₹299</span>
+        </div>
+        <span class="inline-flex items-center gap-2 font-body text-xs text-green-400 bg-green-400/10 px-3 py-1 rounded-full mb-6">✓ Free Shipping All Over India</span>
+        <div class="flex items-center gap-2 mb-6"><span class="w-2 h-2 rounded-full bg-green-400"></span><span class="font-body text-sm text-green-400">In Stock</span></div>
+        <div class="flex items-center gap-4 mb-6">
+          <div class="liquid-glass rounded-full flex items-center">
+            <button onclick="changeQty(-1)" class="w-10 h-10 flex items-center justify-center text-ink hover:text-white" aria-label="Decrease">−</button>
+            <span id="qty-display" class="font-body text-ink w-8 text-center select-none">1</span>
+            <button onclick="changeQty(+1)" class="w-10 h-10 flex items-center justify-center text-ink hover:text-white" aria-label="Increase">+</button>
+          </div>
+          <span class="font-body text-xs text-white/40">Max 5 per order</span>
+        </div>
+        <button id="buy-btn" onclick="productAddToCart('comb', qty, price)" class="btn btn-amber w-full justify-center rounded-xl py-4 text-base mb-3">Add to Cart — ₹199</button>
+        <a href="/cart.html" class="btn liquid-glass w-full justify-center rounded-xl py-2.5 text-base text-ink/70 mb-2">View Cart</a>
+        <a href="https://wa.me/919103998116?text=Hi%2C%20I%27d%20like%20to%20order%20the%20Rijal%20Wooden%20Comb." target="_blank" rel="noopener" class="btn liquid-glass-strong w-full justify-center rounded-xl py-4 text-base text-ink">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#25D366;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.101 1.516 5.824L.055 23.454a.5.5 0 0 0 .491.601l5.809-1.524A11.947 11.947 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.573 9.573 0 0 1-4.885-1.34l-.35-.208-3.626.951.968-3.536-.228-.363A9.555 9.555 0 0 1 2.4 12C2.4 6.698 6.698 2.4 12 2.4S21.6 6.698 21.6 12 17.302 21.6 12 21.6z"/></svg>
+          Order via WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cine-mid py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-heading text-3xl text-ink mb-8 reveal">About This Product</h2>
+      <p class="font-body text-ink/80 text-lg leading-relaxed reveal delay-100">Crafted from 100% natural neem wood, the Rijal Neem Wooden Beard Comb is designed to elevate your daily beard grooming routine. Neem's natural antibacterial properties help keep the beard clean, healthy, and free from dandruff and irritation. Unlike plastic combs, it prevents static and breakage while gently stimulating blood circulation for stronger, fuller beard growth.</p>
+    </div>
+  </section>
+
+  <section class="cine-stats py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-heading text-3xl text-ink mb-10 text-center reveal">Key Benefits</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">100% natural neem wood</p></div>
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal delay-100"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">Naturally antibacterial — keeps beard hygienic</p></div>
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal delay-200"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">Prevents static and hair breakage</p></div>
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">Stimulates blood circulation for fuller growth</p></div>
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal delay-100 sm:col-span-2 lg:col-span-1"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">Superior to plastic combs</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cine-cta py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-heading text-4xl text-ink mb-12 text-center reveal">You May Also Like</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <a href="/product/beard-oil.html" class="liquid-glass rounded-2xl overflow-hidden lift flex gap-4 p-4 reveal"><div class="photo-frame rounded-xl overflow-hidden w-24 h-24 flex-shrink-0"><img src="https://rijal.in/wp-content/uploads/2025/08/WhatsApp-Image-2026-02-21-at-10.40.41-PM.jpeg" alt="Rijal Beard Oil" class="w-full h-full object-cover" loading="lazy" /></div><div><p class="font-body text-xs text-amber-300 uppercase tracking-widest mb-1">Grooming</p><h3 class="font-heading text-lg text-ink leading-tight">Rijal Beard Oil</h3><p class="font-body text-ink mt-1">₹399 <span class="text-white/40 line-through text-sm">₹599</span></p></div></a>
+        <a href="/product/combo.html" class="liquid-glass rounded-2xl overflow-hidden lift flex gap-4 p-4 reveal delay-100"><div class="photo-frame rounded-xl overflow-hidden w-24 h-24 flex-shrink-0"><img src="https://rijal.in/wp-content/uploads/2026/03/WhatsApp-Image-2026-03-17-at-5.03.14-PM.jpeg" alt="Combo" class="w-full h-full object-cover" loading="lazy" /></div><div><p class="font-body text-xs text-amber-300 uppercase tracking-widest mb-1">Grooming</p><h3 class="font-heading text-lg text-ink leading-tight">Beard Oil + Comb Combo</h3><p class="font-body text-ink mt-1">₹499 <span class="text-white/40 line-through text-sm">₹798</span></p></div></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="relative z-10 cine-cta border-t border-white/10 px-6 md:px-12 lg:px-20 py-12">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
+    <div><div class="flex items-center gap-2"><span class="liquid-glass-strong rounded-full h-10 w-10 grid place-items-center"><span class="font-heading italic text-amber-300 text-xl">R</span></span><span class="font-heading italic text-2xl">Rijal</span></div><p class="mt-4 text-white/55 text-sm font-light max-w-xs">Inspired by Sunnah. Backed by Science. A Kashmiri grooming and apparel house.</p></div>
+    <div><div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Shop</div><ul class="space-y-2 text-sm text-white/80"><li><a href="/product/beard-oil.html" class="hover:text-white transition-colors">Beard Oil</a></li><li><a href="/product/comb.html" class="hover:text-white transition-colors">Comb</a></li><li><a href="/product/combo.html" class="hover:text-white transition-colors">Combo Pack</a></li></ul></div>
+    <div><div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Pages</div><ul class="space-y-2 text-sm text-white/80"><li><a href="/" class="hover:text-white transition-colors">Home</a></li><li><a href="/shop.html" class="hover:text-white transition-colors">Online Shop</a></li><li><a href="/about.html" class="hover:text-white transition-colors">About</a></li><li><a href="/contact.html" class="hover:text-white transition-colors">Contact</a></li></ul></div>
+    <div><div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Reach us</div><ul class="space-y-2 text-sm text-white/80"><li>+91&nbsp;9103&nbsp;998&nbsp;116</li><li>rijalstore1212@gmail.com</li><li>Baramulla, Jammu &amp; Kashmir, India</li><li><a href="https://www.instagram.com/rijal.store1" target="_blank" rel="noopener" class="hover:text-white transition-colors">@rijal.store1</a></li></ul></div>
+  </div>
+  <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-white/45">
+    <div>© 2026 Rijal. All rights reserved.</div>
+    <div class="flex items-center gap-4"><a href="#" class="hover:text-white">Privacy</a><a href="#" class="hover:text-white">Terms</a><a href="#" class="hover:text-white">Shipping</a></div>
+  </div>
+</footer>
+
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] liquid-glass-strong rounded-full px-5 py-3 text-sm font-medium opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+<script>
+  let qty = 1; const price = 199;
+  function changeQty(delta) {
+    qty = Math.max(1, Math.min(5, qty + delta));
+    document.getElementById('qty-display').textContent = qty;
+    document.getElementById('buy-btn').textContent = `Add to Cart — ₹${price * qty}`;
+  }
+  function productAddToCart(id, q, p) {
+    addToCart(id, q);
+    const btn = document.getElementById('buy-btn');
+    btn.textContent = '✓ Added to Cart!';
+    setTimeout(() => { btn.textContent = `Add to Cart — ₹${p * qty}`; }, 2000);
+  }
+  function swapImg(btn, src, alt) {
+    const m = document.getElementById('main-img'); m.style.opacity='0';
+    setTimeout(() => { m.src=src; m.alt=alt; m.style.opacity='1'; }, 150);
+    document.querySelectorAll('.grid button').forEach(b => b.classList.remove('ring-2','ring-white/20'));
+    btn.classList.add('ring-2','ring-white/20');
+  }
+  const io = new IntersectionObserver((e) => { e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<script src="/cart-utils.js"></script>
+</body>
+</html>

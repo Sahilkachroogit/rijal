@@ -282,22 +282,22 @@
     </a>
     <!-- Center pill nav -->
     <nav class="hidden md:flex liquid-glass rounded-full px-1.5 py-1 items-center gap-0.5">
-      <a href="#top"      class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Home</a>
-      <a href="#shop"     class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Shop</a>
-      <a href="#standard" class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Standard</a>
-      <a href="#story"    class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">About</a>
-      <a href="#ritual"   class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Ritual</a>
-      <a href="#shop" class="ml-1 inline-flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium hover:bg-ink">
+      <a href="#top"         class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Home</a>
+      <a href="/shop.html"   class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Shop</a>
+      <a href="#standard"    class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Standard</a>
+      <a href="/about.html"  class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">About</a>
+      <a href="/contact.html" class="px-3 py-2 text-sm font-medium text-ink/90 font-body rounded-full hover:text-white">Contact</a>
+      <a href="/shop.html" class="ml-1 inline-flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium hover:bg-ink">
         Get Yours
         <svg class="ic" viewBox="0 0 24 24" style="stroke:#1a0508"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
       </a>
     </nav>
     <!-- Cart -->
     <div class="flex items-center gap-2">
-      <button id="cart-btn" class="liquid-glass rounded-full px-3 py-2 text-xs font-medium font-body inline-flex items-center gap-2">
+      <a href="/cart.html" class="relative liquid-glass rounded-full p-2.5 inline-flex items-center justify-center" aria-label="Cart">
         <svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
-        <span id="cart-label">Cart · 0</span>
-      </button>
+        <span data-cart-count style="display:none" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-white text-[#1a0508] text-[10px] font-bold flex items-center justify-center leading-none"></span>
+      </a>
     </div>
   </div>
 </header>
@@ -812,8 +812,8 @@
     </form>
 
     <div class="mt-6 flex items-center justify-center gap-3 reveal delay-300">
-      <a href="#shop" class="bg-white text-black rounded-full px-6 py-3 text-sm font-medium hover:bg-ink transition-colors">Shop Now</a>
-      <a href="#contact" class="text-sm font-medium text-white/70 hover:text-white px-2 py-3">Contact us</a>
+      <a href="/shop.html" class="bg-white text-black rounded-full px-6 py-3 text-sm font-medium hover:bg-ink transition-colors">Shop Now</a>
+      <a href="/contact.html" class="text-sm font-medium text-white/70 hover:text-white px-2 py-3">Contact us</a>
     </div>
   </div>
 
@@ -832,18 +832,18 @@
       <div>
         <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Shop</div>
         <ul class="space-y-2 text-sm text-white/80">
-          <li><a href="#shop" class="hover:text-white transition-colors">Beard Oil</a></li>
-          <li><a href="#shop" class="hover:text-white transition-colors">Comb</a></li>
-          <li><a href="#shop" class="hover:text-white transition-colors">Combo Pack</a></li>
+          <li><a href="/product/beard-oil.html" class="hover:text-white transition-colors">Beard Oil</a></li>
+          <li><a href="/product/comb.html" class="hover:text-white transition-colors">Comb</a></li>
+          <li><a href="/product/combo.html" class="hover:text-white transition-colors">Combo Pack</a></li>
         </ul>
       </div>
       <div>
         <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Studio</div>
         <ul class="space-y-2 text-sm text-white/80">
-          <li><a href="#story"    class="hover:text-white transition-colors">About</a></li>
+          <li><a href="/about.html"   class="hover:text-white transition-colors">About</a></li>
           <li><a href="#standard" class="hover:text-white transition-colors">The Rijal Standard</a></li>
           <li><a href="#ritual"   class="hover:text-white transition-colors">The Ritual</a></li>
-          <li><a href="#contact"  class="hover:text-white transition-colors">Contact</a></li>
+          <li><a href="/contact.html" class="hover:text-white transition-colors">Contact</a></li>
         </ul>
       </div>
       <div>
@@ -898,7 +898,8 @@
       video: 'assets/beardoil.mp4',
       priceWas: 599, price: 399,
       badge: 'Bestseller', tag: 'Sunnah-rooted', stock: true,
-      copy: 'Repair. Nourish. Grow. Black Seed + Olive at the heart.'
+      copy: 'Repair. Nourish. Grow. Black Seed + Olive at the heart.',
+      url: '/product/beard-oil.html', checkoutId: 'beard-oil'
     },
     {
       id: 'combo', cat: 'combo',
@@ -906,7 +907,8 @@
       video: 'assets/combo.mp4',
       priceWas: 798, price: 499,
       badge: 'Best value', tag: 'Two pieces', stock: true,
-      copy: 'The complete daily ritual — oil and comb, paired.'
+      copy: 'The complete daily ritual — oil and comb, paired.',
+      url: '/product/combo.html', checkoutId: 'combo'
     },
     {
       id: 'comb', cat: 'comb',
@@ -914,7 +916,8 @@
       video: 'assets/comb.mp4',
       priceWas: 299, price: 199,
       badge: 'Hand-cut', tag: '100% Neem', stock: true,
-      copy: 'Anti-static, antibacterial. Hand-cut in Baramulla.'
+      copy: 'Anti-static, antibacterial. Hand-cut in Baramulla.',
+      url: '/product/comb.html', checkoutId: 'comb'
     },
   ];
 
@@ -925,11 +928,11 @@
       ? `<span class="liquid-glass-strong rounded-full px-3 py-1 text-[11px] font-medium inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full" style="background:#C7B7A3"></span>In stock</span>`
       : `<span class="liquid-glass rounded-full px-3 py-1 text-[11px] font-medium text-white/70 inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>Out of stock</span>`;
     const cta = p.stock
-      ? `<button data-id="${p.id}" class="add-cart liquid-glass-strong rounded-full px-4 py-2 text-xs font-medium inline-flex items-center gap-2">Add to cart <svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></button>`
-      : `<button data-id="${p.id}" class="notify liquid-glass rounded-full px-4 py-2 text-xs font-medium inline-flex items-center gap-2">Notify me <svg class="ic" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>`;
+      ? `<button onclick="event.stopPropagation();homeAddToCart('${p.checkoutId}','${p.name}')" class="add-cart liquid-glass-strong rounded-full px-4 py-2 text-xs font-medium inline-flex items-center gap-2">Add to Cart <svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></button>`
+      : `<a href="${p.url}" onclick="event.stopPropagation()" class="notify liquid-glass rounded-full px-4 py-2 text-xs font-medium inline-flex items-center gap-2">Notify me <svg class="ic" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></a>`;
 
     return `
-      <article class="lift liquid-glass rounded-2xl overflow-hidden flex flex-col" data-cat="${p.cat}">
+      <article onclick="window.location.href='${p.url}'" style="cursor:pointer" class="lift liquid-glass rounded-2xl overflow-hidden flex flex-col" data-cat="${p.cat}">
         <div class="aspect-[4/3] photo-frame relative overflow-hidden">
           <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
             <source src="${p.video}" type="video/mp4" />
@@ -961,16 +964,7 @@
     const items = products.filter(p => filter === 'all' || p.cat === filter);
     grid.innerHTML = items.map(card).join('');
 
-    grid.querySelectorAll('.add-cart').forEach(b => b.addEventListener('click', e => {
-      const p = products.find(x => x.id === e.currentTarget.dataset.id);
-      cartCount++;
-      document.getElementById('cart-label').textContent = `Cart · ${cartCount}`;
-      toast(`Added ${p.name} · ${rupee(p.price)}`);
-    }));
-    grid.querySelectorAll('.notify').forEach(b => b.addEventListener('click', e => {
-      const p = products.find(x => x.id === e.currentTarget.dataset.id);
-      toast(`We'll notify you when ${p.name} is back.`);
-    }));
+    // cards navigate on click — buttons handle add-to-cart separately
   }
 
   renderGrid('all');
@@ -1318,5 +1312,12 @@ if (gsap && ScrollTrigger) {
 }
 </script>
 
+<script src="/cart-utils.js"></script>
+<script>
+  function homeAddToCart(id, name) {
+    addToCart(id, 1);
+    toast(`Added ${name} to cart!`);
+  }
+</script>
 </body>
 </html>

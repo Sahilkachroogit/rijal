@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Checkout — Rijal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          heading: ["'Instrument Serif'", "serif"],
+          body: ["'Barlow'", "sans-serif"],
+        },
+        colors: {
+          bg: "#1a0508",
+          ink: "#E8D8C4",
+          amber: { 50:"#f5ede4", 300:"#C7B7A3", 400:"#C7B7A3", 500:"#6D2932", 600:"#561C24" },
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root{--bg:#1a0508;--ink:#E8D8C4;--amber:#6D2932;}
+  html,body{background:#1a0508;color:var(--ink);}
+  body{font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;}
+  header{position:relative;z-index:50;}
+  #toast{z-index:60;}
+  .font-heading{font-family:'Instrument Serif',serif;}
+  .font-body{font-family:'Barlow',sans-serif;}
+  .liquid-glass{background:rgba(255,255,255,0.025);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,0.08);position:relative;overflow:hidden;}
+  .liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.15) 80%,rgba(255,255,255,.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .liquid-glass-strong{background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:none;box-shadow:4px 4px 4px rgba(0,0,0,.05),inset 0 1px 1px rgba(255,255,255,.18);position:relative;overflow:hidden;}
+  .liquid-glass-strong::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.22) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.22) 80%,rgba(255,255,255,.55) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .cine-hero{background:radial-gradient(60% 80% at 30% 20%,rgba(109,41,50,.28),transparent 60%),radial-gradient(50% 70% at 80% 90%,rgba(86,28,36,.18),transparent 60%),linear-gradient(180deg,#200a0e 0%,#1a0508 60%,#110305 100%);}
+  .cine-mid{background:radial-gradient(80% 60% at 50% 50%,rgba(109,41,50,.18),transparent 70%),linear-gradient(180deg,#1e0809,#1a0508 60%,#130408);}
+  .cine-cta{background:radial-gradient(60% 80% at 30% 80%,rgba(109,41,50,.28),transparent 60%),radial-gradient(80% 60% at 80% 20%,rgba(86,28,36,.14),transparent 60%),linear-gradient(180deg,#1c0609 0%,#1a0508 100%);}
+  ::selection{background:rgba(109,41,50,0.45);color:#E8D8C4;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.6rem 1rem;font-size:.875rem;font-weight:500;}
+  .btn-primary{background:#fff;color:#1a0508;}
+  .btn-primary:hover{background:#E8D8C4;}
+  .btn-amber{background:linear-gradient(180deg,#6D2932,#3D0F17);color:#E8D8C4;}
+  .btn-amber:hover{filter:brightness(1.08);}
+  .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  .field-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:.75rem;padding:.875rem 1rem;color:#E8D8C4;font-family:'Barlow',sans-serif;font-size:.9375rem;transition:border-color .2s;display:block;}
+  .field-input::placeholder{color:rgba(255,255,255,.25);}
+  .field-input:focus{outline:none;border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.06);}
+  .field-input.error{border-color:rgba(239,68,68,.5);}
+  select.field-input option{background:#1a0508;color:#E8D8C4;}
+  /* Step progress */
+  .step-dot{width:10px;height:10px;border-radius:9999px;background:rgba(255,255,255,0.15);transition:background .3s;}
+  .step-dot.active{background:#E8D8C4;}
+  .step-dot.done{background:#6D2932;}
+  html{scroll-behavior:smooth;}
+  @media(max-width:767px){.liquid-glass{backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}.liquid-glass-strong{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}}
+</style>
+</head>
+<body class="bg-bg text-ink antialiased">
+
+<!-- NAVBAR -->
+<header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 lg:px-16 py-3">
+  <div class="flex items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2">
+      <span class="liquid-glass-strong rounded-full h-11 w-11 grid place-items-center">
+        <span class="font-heading italic text-xl text-amber-300">R</span>
+      </span>
+      <span class="hidden md:inline font-heading italic text-xl tracking-tight">Rijal</span>
+    </a>
+    <div class="liquid-glass rounded-full px-5 py-2 flex items-center gap-3">
+      <div class="step-dot active" id="dot-1"></div>
+      <div class="step-dot" id="dot-2"></div>
+      <div class="step-dot" id="dot-3"></div>
+      <span class="font-body text-xs text-ink/60 ml-1" id="step-label">Step 1 of 3 — Your Details</span>
+    </div>
+    <a href="/shop.html" class="liquid-glass rounded-full px-4 py-2 text-sm font-body text-ink/70 hover:text-white flex items-center gap-2">
+      <svg class="ic" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      Shop
+    </a>
+  </div>
+</header>
+
+<main class="cine-hero min-h-screen pt-32 pb-20 px-6">
+  <div class="max-w-xl mx-auto">
+
+    <!-- STEP 1: Customer Details -->
+    <div class="step-pane" id="step-1">
+      <h2 class="font-heading text-3xl text-ink mb-8 text-center">Your Details</h2>
+      <div class="liquid-glass rounded-2xl p-8">
+        <div class="mb-4">
+          <label for="c-name" class="sr-only">Full Name</label>
+          <input id="c-name" type="text" placeholder="Full Name *" class="field-input" autocomplete="name" required />
+        </div>
+        <div class="mb-4">
+          <label for="c-phone" class="sr-only">Mobile Number</label>
+          <input id="c-phone" type="tel" placeholder="Mobile Number * (10-digit)" class="field-input" autocomplete="tel" required pattern="[6-9]\d{9}" maxlength="10" />
+        </div>
+        <div class="mb-4">
+          <label for="c-email" class="sr-only">Email Address</label>
+          <input id="c-email" type="email" placeholder="Email Address *" class="field-input" autocomplete="email" required />
+        </div>
+        <div class="mb-4">
+          <label for="c-addr" class="sr-only">Delivery Address</label>
+          <textarea id="c-addr" placeholder="Delivery Address *" class="field-input h-24 resize-none" required></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="c-city" class="sr-only">City</label>
+          <input id="c-city" type="text" placeholder="City *" class="field-input" required />
+        </div>
+        <div class="mb-4">
+          <label for="c-state" class="sr-only">State</label>
+          <select id="c-state" class="field-input" required>
+            <option value="">Select State *</option>
+            <option>Andhra Pradesh</option><option>Arunachal Pradesh</option>
+            <option>Assam</option><option>Bihar</option><option>Chhattisgarh</option>
+            <option>Goa</option><option>Gujarat</option><option>Haryana</option>
+            <option>Himachal Pradesh</option><option>Jharkhand</option>
+            <option>Karnataka</option><option>Kerala</option>
+            <option>Madhya Pradesh</option><option>Maharashtra</option>
+            <option>Manipur</option><option>Meghalaya</option><option>Mizoram</option>
+            <option>Nagaland</option><option>Odisha</option><option>Punjab</option>
+            <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option>
+            <option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option>
+            <option>Uttarakhand</option><option>West Bengal</option>
+            <option>Andaman and Nicobar Islands</option><option>Chandigarh</option>
+            <option>Dadra and Nagar Haveli and Daman and Diu</option>
+            <option>Delhi</option><option>Jammu and Kashmir</option>
+            <option>Ladakh</option><option>Lakshadweep</option><option>Puducherry</option>
+          </select>
+        </div>
+        <div class="mb-6">
+          <label for="c-pin" class="sr-only">Pincode</label>
+          <input id="c-pin" type="text" placeholder="Pincode * (6-digit)" class="field-input" required pattern="\d{6}" maxlength="6" />
+        </div>
+        <p id="step1-error" class="hidden text-red-400 text-sm mb-4 font-body"></p>
+        <button onclick="proceedToSummary()"
+                class="btn btn-amber w-full justify-center rounded-xl py-4 text-base">
+          Continue to Order Summary →
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Order Summary -->
+    <div class="step-pane hidden" id="step-2">
+      <h2 class="font-heading text-3xl text-ink mb-8 text-center">Order Summary</h2>
+
+      <!-- Cart items (populated by renderSummary) -->
+      <div id="summary-items" class="liquid-glass rounded-2xl p-6 mb-4 space-y-4"></div>
+
+      <!-- Price breakdown -->
+      <div class="liquid-glass rounded-2xl p-6 mb-4">
+        <div class="flex justify-between font-body text-ink/70 mb-2 text-sm">
+          <span>Subtotal</span><span id="summary-subtotal"></span>
+        </div>
+        <div class="flex justify-between font-body text-ink/70 mb-4 text-sm">
+          <span>Shipping</span><span class="text-green-400 font-medium">FREE</span>
+        </div>
+        <div class="border-t border-white/10 pt-4 flex justify-between font-heading text-2xl text-ink">
+          <span>Total</span><span id="summary-total"></span>
+        </div>
+      </div>
+
+      <!-- Customer recap -->
+      <div class="liquid-glass rounded-2xl p-6 mb-6">
+        <div class="flex justify-between items-start mb-3">
+          <h4 class="font-body text-ink/60 text-xs uppercase tracking-widest">Delivering To</h4>
+          <button onclick="showStep(1)" class="font-body text-xs text-amber-300 hover:text-ink transition-colors">← Edit</button>
+        </div>
+        <p id="summary-customer" class="font-body text-ink text-sm leading-relaxed"></p>
+      </div>
+
+      <p id="step2-error" class="hidden text-red-400 text-sm mb-4 font-body"></p>
+
+      <button onclick="initiatePayment()" id="pay-btn"
+              class="btn btn-amber w-full justify-center rounded-xl py-4 text-base">
+        Confirm &amp; Pay ₹<span id="pay-amount"></span>
+      </button>
+      <p class="font-body text-xs text-white/30 text-center mt-3">
+        🔒 Secured by Razorpay · Your data is encrypted
+      </p>
+      <button onclick="showStep(1)" class="mt-4 w-full text-center font-body text-xs text-white/40 hover:text-white/70 transition-colors">
+        ← Back to Details
+      </button>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER (minimal) -->
+<footer class="border-t border-white/10 px-6 py-6 text-center">
+  <p class="font-body text-xs text-white/30">© 2026 Rijal · <a href="/shop.html" class="hover:text-white/60">Continue Shopping</a></p>
+</footer>
+
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] liquid-glass-strong rounded-full px-5 py-3 text-sm font-medium opacity-0 pointer-events-none transition-opacity duration-300 max-w-xs text-center"></div>
+
+<script src="/cart-utils.js"></script>
+<script>
+  const PRODUCTS = {
+    'beard-oil': { name:'Rijal Beard Oil', price:399, image:'https://rijal.in/wp-content/uploads/2025/08/WhatsApp-Image-2026-02-21-at-10.40.41-PM.jpeg' },
+    'combo':     { name:'Rijal Beard Oil & Neem Wood Comb Combo', price:499, image:'https://rijal.in/wp-content/uploads/2026/03/WhatsApp-Image-2026-03-17-at-5.03.14-PM.jpeg' },
+    'comb':      { name:'Rijal Wooden Comb', price:199, image:'https://rijal.in/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-20-at-11.06.59-PM.jpeg' },
+  };
+
+  // Support direct ?product=ID&qty=N links — add to cart first
+  (function() {
+    const p = new URLSearchParams(window.location.search);
+    const pid = p.get('product');
+    const q = Math.max(1, Math.min(5, parseInt(p.get('qty')) || 1));
+    if (pid && PRODUCTS[pid]) {
+      const c = getCart();
+      c[pid] = Math.min((c[pid] || 0) + q, 5);
+      saveCart(c);
+    }
+  })();
+
+  // Validate cart has items
+  const cartItems = Object.entries(getCart()).filter(([id]) => PRODUCTS[id]);
+  if (cartItems.length === 0) window.location.href = '/shop.html';
+
+  // Step management
+  let currentStep = 1;
+  const stepLabels = ['', 'Step 1 of 3 — Your Details', 'Step 2 of 3 — Review Order', 'Step 3 of 3 — Payment'];
+
+  function showStep(n) {
+    document.querySelectorAll('.step-pane').forEach((el, i) => {
+      el.classList.toggle('hidden', i + 1 !== n);
+    });
+    currentStep = n;
+    document.getElementById('step-label').textContent = stepLabels[n];
+    ['dot-1','dot-2','dot-3'].forEach((id, i) => {
+      const d = document.getElementById(id);
+      d.classList.remove('active','done');
+      if (i + 1 < n) d.classList.add('done');
+      else if (i + 1 === n) d.classList.add('active');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function proceedToSummary() {
+    const errEl = document.getElementById('step1-error');
+    errEl.classList.add('hidden');
+
+    const fields = [
+      { id:'c-name', label:'name' },
+      { id:'c-phone', label:'mobile number', pattern:/^[6-9]\d{9}$/ },
+      { id:'c-email', label:'email', pattern:/^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+      { id:'c-addr', label:'delivery address' },
+      { id:'c-city', label:'city' },
+      { id:'c-state', label:'state' },
+      { id:'c-pin', label:'pincode', pattern:/^\d{6}$/ },
+    ];
+
+    for (const f of fields) {
+      const el = document.getElementById(f.id);
+      el.classList.remove('error');
+      if (!el.value.trim()) {
+        el.classList.add('error');
+        el.focus();
+        errEl.textContent = `Please enter your ${f.label}.`;
+        errEl.classList.remove('hidden');
+        return;
+      }
+      if (f.pattern && !f.pattern.test(el.value.trim())) {
+        el.classList.add('error');
+        el.focus();
+        errEl.textContent = `Please enter a valid ${f.label}.`;
+        errEl.classList.remove('hidden');
+        return;
+      }
+    }
+
+    sessionStorage.setItem('rijal_customer', JSON.stringify({
+      name:    document.getElementById('c-name').value.trim(),
+      phone:   document.getElementById('c-phone').value.trim(),
+      email:   document.getElementById('c-email').value.trim(),
+      address: `${document.getElementById('c-addr').value.trim()}, ${document.getElementById('c-city').value.trim()}, ${document.getElementById('c-state').value}, ${document.getElementById('c-pin').value.trim()}`,
+    }));
+
+    renderSummary();
+    showStep(2);
+  }
+
+  function renderSummary() {
+    const customer = JSON.parse(sessionStorage.getItem('rijal_customer') || '{}');
+    const cart = getCart();
+    const items = Object.entries(cart).filter(([id]) => PRODUCTS[id]);
+    let subtotal = 0;
+
+    const html = items.map(([id, q]) => {
+      const p = PRODUCTS[id];
+      const line = p.price * q;
+      subtotal += line;
+      return `<div class="flex gap-4 items-center">
+        <img src="${p.image}" class="w-16 h-16 rounded-xl object-cover flex-shrink-0" alt="${p.name}" />
+        <div class="flex-1 min-w-0">
+          <p class="font-heading text-lg text-ink leading-tight">${p.name}</p>
+          <p class="font-body text-ink/60 text-sm mt-0.5">Qty: ${q} × ₹${p.price}</p>
+        </div>
+        <span class="font-body font-semibold text-ink flex-shrink-0">₹${line}</span>
+      </div>`;
+    }).join('<div class="border-t border-white/10 my-3"></div>');
+
+    document.getElementById('summary-items').innerHTML = html;
+    document.getElementById('summary-subtotal').textContent = `₹${subtotal}`;
+    document.getElementById('summary-total').textContent = `₹${subtotal}`;
+    document.getElementById('summary-customer').textContent = `${customer.name} · ${customer.phone}\n${customer.address}`;
+    document.getElementById('pay-amount').textContent = subtotal;
+    window.__cartTotal = subtotal;
+  }
+
+  async function initiatePayment() {
+    const customer = JSON.parse(sessionStorage.getItem('rijal_customer') || '{}');
+    if (!customer.name) { showStep(1); return; }
+
+    const errEl = document.getElementById('step2-error');
+    errEl.classList.add('hidden');
+    const btn = document.getElementById('pay-btn');
+    btn.textContent = 'Creating order…';
+    btn.disabled = true;
+
+    try {
+      const cartData = getCart();
+      const items = Object.entries(cartData)
+        .filter(([id]) => PRODUCTS[id])
+        .map(([productId, qty]) => ({ productId, qty }));
+      if (items.length === 0) { window.location.href = '/shop.html'; return; }
+
+      const res = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items, customer }),
+      });
+      const { razorpay_order_id, amount, error } = await res.json();
+      if (error) throw new Error(error);
+
+      const itemNames = items.map(i => `${PRODUCTS[i.productId].name} ×${i.qty}`).join(', ');
+      const options = {
+        key: 'RAZORPAY_KEY_ID',
+        amount,
+        currency: 'INR',
+        name: 'Rijal Store',
+        description: itemNames,
+        order_id: razorpay_order_id,
+        prefill: { name: customer.name, email: customer.email, contact: customer.phone },
+        theme: { color: '#6D2932' },
+        modal: { backdropclose: false },
+        handler: async function(response) {
+          try {
+            const verifyRes = await fetch('/api/verify-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id:   response.razorpay_order_id,
+                razorpay_signature:  response.razorpay_signature,
+                customer,
+                cart: { productName: product.name, qty, price: product.price * 100 * qty },
+              }),
+            });
+            const result = await verifyRes.json();
+            if (result.success) {
+              clearCart();
+              sessionStorage.removeItem('rijal_customer');
+              window.location.href = `/order-success.html?order_id=${response.razorpay_order_id}`;
+            } else {
+              throw new Error('Verification failed');
+            }
+          } catch {
+            errEl.textContent = 'Payment verification failed. Please contact us on WhatsApp with your payment ID.';
+            errEl.classList.remove('hidden');
+            btn.innerHTML = `Confirm &amp; Pay ₹<span id="pay-amount">${window.__cartTotal}</span>`;
+            btn.disabled = false;
+          }
+        },
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.on('payment.failed', function(response) {
+        errEl.textContent = `Payment failed: ${response.error.description}. Please try again.`;
+        errEl.classList.remove('hidden');
+        btn.innerHTML = `Confirm &amp; Pay ₹<span id="pay-amount">${window.__cartTotal}</span>`;
+        btn.disabled = false;
+      });
+      rzp.open();
+    } catch (err) {
+      errEl.textContent = err.message || 'Could not create order. Please try again or order via WhatsApp.';
+      errEl.classList.remove('hidden');
+      btn.innerHTML = `Confirm &amp; Pay ₹<span id="pay-amount">${product.price * qty}</span>`;
+      btn.disabled = false;
+    }
+  }
+
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(window.__toast);
+    window.__toast = setTimeout(() => { t.style.opacity = '0'; }, 3000);
+  }
+</script>
+</body>
+</html>

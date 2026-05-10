@@ -1,0 +1,66 @@
+name = "rijal-workers"
+compatibility_date = "2024-01-01"
+
+# ── KV Namespace ──────────────────────────────────────────────────────────────
+# Create in Cloudflare Dashboard → Workers & Pages → KV → Create namespace
+# Name it "RIJAL_ADMIN", then paste the generated ID below.
+[[kv_namespaces]]
+binding = "KV"
+id = "YOUR_KV_NAMESPACE_ID"   # Replace after creating in Cloudflare dashboard
+
+# ── Main site routes ──────────────────────────────────────────────────────────
+[[routes]]
+pattern = "rijal.in/api/create-order"
+script = "workers/create-order.js"
+
+[[routes]]
+pattern = "rijal.in/api/verify-payment"
+script = "workers/verify-payment.js"
+
+[[routes]]
+pattern = "rijal.in/api/contact"
+script = "workers/contact.js"
+
+[[routes]]
+pattern = "rijal.in/api/notify-me"
+script = "workers/notify-me.js"
+
+[[routes]]
+pattern = "rijal.in/api/products"
+script = "workers/public-products.js"
+
+# ── Admin routes (admin.rijal.in only) ───────────────────────────────────────
+[[routes]]
+pattern = "admin.rijal.in/api/admin/login"
+script = "workers/admin-auth.js"
+
+[[routes]]
+pattern = "admin.rijal.in/api/admin/products*"
+script = "workers/admin-products.js"
+
+[[routes]]
+pattern = "admin.rijal.in/api/admin/orders*"
+script = "workers/admin-orders.js"
+
+# ── Environment secrets (set in Cloudflare Dashboard, NOT here) ───────────────
+# Workers & Pages → rijal-workers → Settings → Variables → Add encrypted secret:
+#
+#   Existing (already set):
+#   RAZORPAY_KEY_ID         — Razorpay public key ID
+#   RAZORPAY_KEY_SECRET     — Razorpay secret key
+#   RESEND_API_KEY          — Resend API key
+#   RESEND_FROM_EMAIL       — orders@rijal.in
+#   OWNER_EMAIL             — rijalstore1212@gmail.com
+#
+#   New (add these for admin panel):
+#   ADMIN_UID               — e.g. abdul_rijal
+#   ADMIN_PASSWORD          — a strong password (min 16 chars recommended)
+#   ADMIN_SESSION_SECRET    — 64-char random hex string
+#                             Generate: openssl rand -hex 32
+#
+# ── KV seed data (run once via Wrangler CLI) ──────────────────────────────────
+# After creating the KV namespace and replacing YOUR_KV_NAMESPACE_ID above:
+#
+#   wrangler kv:key put --binding=KV "products" '{"beard-oil":{"price":399,"mrp":599,"inStock":true},"combo":{"price":499,"mrp":798,"inStock":true},"comb":{"price":199,"mrp":299,"inStock":true},"cap-black":{"price":249,"mrp":500,"inStock":false},"cap-grey":{"price":249,"mrp":500,"inStock":false},"hoodie-beige":{"price":999,"mrp":2000,"inStock":false},"hoodie-black":{"price":999,"mrp":2000,"inStock":false}}'
+#
+#   wrangler kv:key put --binding=KV "order_index" '[]'

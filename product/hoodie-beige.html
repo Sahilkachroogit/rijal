@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Premium Hoodie — Beige — Rijal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { heading: ["'Instrument Serif'", "serif"], body: ["'Barlow'", "sans-serif"] },
+        colors: { bg:"#1a0508", ink:"#E8D8C4", amber:{ 50:"#f5ede4", 300:"#C7B7A3", 400:"#C7B7A3", 500:"#6D2932", 600:"#561C24" } },
+      },
+    },
+  };
+</script>
+<style>
+  :root{--bg:#1a0508;--ink:#E8D8C4;--amber:#6D2932;}
+  html,body{background:#1a0508;color:var(--ink);}
+  body{font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;}
+  section{position:relative;z-index:2;}header{position:relative;z-index:50;}#toast{z-index:60;}
+  .font-heading{font-family:'Instrument Serif',serif;}.font-body{font-family:'Barlow',sans-serif;}
+  .liquid-glass{background:rgba(255,255,255,0.025);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,0.08);position:relative;overflow:hidden;}
+  .liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.15) 80%,rgba(255,255,255,.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .liquid-glass-strong{background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:none;box-shadow:4px 4px 4px rgba(0,0,0,.05),inset 0 1px 1px rgba(255,255,255,.18);position:relative;overflow:hidden;}
+  .liquid-glass-strong::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.22) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.22) 80%,rgba(255,255,255,.55) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .cine-hero{background:radial-gradient(60% 80% at 30% 20%,rgba(109,41,50,.28),transparent 60%),radial-gradient(50% 70% at 80% 90%,rgba(86,28,36,.18),transparent 60%),linear-gradient(180deg,#200a0e 0%,#1a0508 60%,#110305 100%);}
+  .cine-mid{background:radial-gradient(80% 60% at 50% 50%,rgba(109,41,50,.18),transparent 70%),linear-gradient(180deg,#1e0809,#1a0508 60%,#130408);}
+  .cine-stats{background:radial-gradient(60% 80% at 70% 50%,rgba(255,255,255,.04),transparent 70%),linear-gradient(180deg,#1a0508,#0e0205 60%,#1a0508);}
+  .cine-cta{background:radial-gradient(60% 80% at 30% 80%,rgba(109,41,50,.28),transparent 60%),radial-gradient(80% 60% at 80% 20%,rgba(86,28,36,.14),transparent 60%),linear-gradient(180deg,#1c0609 0%,#1a0508 100%);}
+  .reveal{opacity:0;transform:translateY(28px);filter:blur(8px);transition:opacity .9s ease,transform .9s ease,filter .9s ease;contain:layout style;}
+  .reveal.in{opacity:1;transform:none;filter:blur(0);}
+  .reveal.delay-100{transition-delay:.1s;}.reveal.delay-200{transition-delay:.2s;}
+  .photo-frame{background:radial-gradient(80% 80% at 50% 50%,rgba(86,28,36,.12),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));}
+  ::selection{background:rgba(109,41,50,0.45);color:#E8D8C4;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.6rem 1rem;font-size:.875rem;font-weight:500;}
+  .btn-primary{background:#fff;color:#1a0508;}.btn-primary:hover{background:#E8D8C4;}
+  .btn-amber{background:linear-gradient(180deg,#6D2932,#3D0F17);color:#E8D8C4;}.btn-amber:hover{filter:brightness(1.08);}
+  .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  .lift{transition:transform .5s cubic-bezier(.2,.7,.2,1);}.lift:hover{transform:translateY(-4px);}
+  html{scroll-behavior:smooth;}
+  input[type="email"]{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#E8D8C4;outline:none;transition:border-color .2s;}
+  input[type="email"]:focus{border-color:rgba(255,255,255,0.35);}
+  input[type="email"]::placeholder{color:rgba(232,216,196,0.35);}
+  .size-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#E8D8C4;border-radius:.5rem;padding:.375rem .75rem;font-family:'Barlow',sans-serif;font-size:.875rem;cursor:default;opacity:.5;}
+  @media(max-width:767px){.liquid-glass{backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}.liquid-glass-strong{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}}
+</style>
+</head>
+<body class="bg-bg text-ink antialiased">
+
+<header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 lg:px-16 py-3">
+  <div class="flex items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2"><span class="liquid-glass-strong rounded-full h-11 w-11 grid place-items-center"><span class="font-heading italic text-xl text-amber-300">R</span></span><span class="hidden md:inline font-heading italic text-xl tracking-tight">Rijal</span></a>
+    <nav class="hidden md:flex liquid-glass rounded-full px-1.5 py-1 items-center gap-0.5">
+      <a href="/" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Home</a>
+      <a href="/shop.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Shop</a>
+      <a href="/about.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">About</a>
+      <a href="/contact.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Contact</a>
+      <a href="/shop.html" class="ml-1 inline-flex items-center gap-1 bg-white text-black rounded-full px-3.5 py-1.5 text-sm font-medium hover:bg-ink">Shop All<svg class="ic" viewBox="0 0 24 24" style="stroke:#1a0508"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
+    </nav>
+    <button onclick="document.getElementById('mob-nav').classList.toggle('hidden')" class="md:hidden liquid-glass rounded-full p-2.5" aria-label="Menu"><svg class="ic" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+  </div>
+  <div id="mob-nav" class="hidden md:hidden mt-2 liquid-glass rounded-2xl px-4 py-3 flex-col gap-1">
+    <a href="/" class="block py-2 text-sm font-medium font-body hover:text-white">Home</a>
+    <a href="/shop.html" class="block py-2 text-sm font-medium font-body hover:text-white">Shop</a>
+    <a href="/about.html" class="block py-2 text-sm font-medium font-body hover:text-white">About</a>
+    <a href="/contact.html" class="block py-2 text-sm font-medium font-body hover:text-white">Contact</a>
+  </div>
+</header>
+
+<nav class="pt-28 pb-4 px-6 max-w-6xl mx-auto font-body text-sm text-white/40">
+  <a href="/" class="hover:text-ink transition-colors">Home</a><span class="mx-2">/</span>
+  <a href="/shop.html" class="hover:text-ink transition-colors">Shop</a><span class="mx-2">/</span>
+  <span class="text-ink">Premium Hoodie — Beige</span>
+</nav>
+
+<main>
+  <section class="cine-hero py-10 px-6">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div>
+        <div class="photo-frame rounded-2xl overflow-hidden aspect-square mb-4 reveal">
+          <img id="main-img" src="https://rijal.in/wp-content/uploads/2025/09/IMG-20250907-WA0019-scaled.jpg" alt="Rijal Premium Hoodie Beige — front view" class="w-full h-full object-cover transition-opacity duration-300" />
+        </div>
+        <div class="grid grid-cols-3 gap-3 reveal delay-100">
+          <button onclick="swapImg(this,'https://rijal.in/wp-content/uploads/2025/09/IMG-20250907-WA0019-scaled.jpg','Hoodie Beige front')" class="photo-frame rounded-xl overflow-hidden aspect-square ring-2 ring-white/20 ring-offset-1 ring-offset-[#1a0508]"><img src="https://rijal.in/wp-content/uploads/2025/09/IMG-20250907-WA0019-scaled.jpg" alt="Hoodie Beige — view 1" class="w-full h-full object-cover" /></button>
+          <button onclick="swapImg(this,'https://rijal.in/wp-content/uploads/2025/09/IMG-20250907-WA0023-scaled.jpg','Hoodie Beige detail')" class="photo-frame rounded-xl overflow-hidden aspect-square ring-1 ring-white/10 ring-offset-1 ring-offset-[#1a0508]"><img src="https://rijal.in/wp-content/uploads/2025/09/IMG-20250907-WA0023-scaled.jpg" alt="Hoodie Beige — view 2" class="w-full h-full object-cover" /></button>
+          <div class="photo-frame rounded-xl overflow-hidden aspect-square opacity-20 flex items-center justify-center"><span class="font-body text-xs text-white/40">More soon</span></div>
+        </div>
+      </div>
+      <div class="pt-4 reveal delay-200">
+        <p class="font-body text-amber-300 uppercase tracking-[0.3em] text-xs mb-3">Apparel</p>
+        <h1 class="font-heading text-4xl md:text-5xl text-ink mb-3 leading-tight">Premium Hoodie — Beige</h1>
+        <p class="font-body text-ink/60 text-lg italic mb-6">Warmth &amp; Identity from Kashmir</p>
+        <div class="flex items-baseline gap-4 mb-6 flex-wrap">
+          <span class="font-body text-4xl font-semibold text-ink">₹999</span>
+          <span class="font-body text-xl text-white/40 line-through">₹2,000</span>
+          <span class="font-body text-sm text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-full">Save ₹1,001</span>
+        </div>
+        <div class="flex items-center gap-2 mb-5">
+          <span class="w-2 h-2 rounded-full bg-red-400"></span>
+          <span class="font-body text-sm text-red-400">Currently Out of Stock</span>
+        </div>
+        <div class="mb-6">
+          <p class="font-body text-xs text-white/50 uppercase tracking-widest mb-2">Available Sizes</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="size-btn">S</span>
+            <span class="size-btn">M</span>
+            <span class="size-btn">L</span>
+            <span class="size-btn">XL</span>
+            <span class="size-btn">XXL</span>
+          </div>
+          <p class="font-body text-xs text-white/35 mt-2">Sizes unavailable while out of stock</p>
+        </div>
+        <p class="font-body text-ink/60 text-sm mb-5">Drop your email and we'll notify you the moment it's back.</p>
+        <input type="email" id="notify-email" placeholder="your@email.com" class="w-full rounded-xl px-4 py-3 font-body text-sm mb-3" />
+        <button id="notify-btn" onclick="submitNotifyMe('hoodie-beige','Premium Hoodie — Beige')" class="btn btn-primary w-full justify-center rounded-xl py-4 text-base mb-4">Notify Me When Available</button>
+        <a href="https://wa.me/919103998116?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20the%20Rijal%20Premium%20Hoodie%20%E2%80%94%20Beige.%20Is%20it%20back%20in%20stock%3F" target="_blank" rel="noopener" class="btn liquid-glass-strong w-full justify-center rounded-xl py-4 text-base text-ink">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#25D366;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.101 1.516 5.824L.055 23.454a.5.5 0 0 0 .491.601l5.809-1.524A11.947 11.947 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.573 9.573 0 0 1-4.885-1.34l-.35-.208-3.626.951.968-3.536-.228-.363A9.555 9.555 0 0 1 2.4 12C2.4 6.698 6.698 2.4 12 2.4S21.6 6.698 21.6 12 17.302 21.6 12 21.6z"/></svg>
+          Ask on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cine-mid py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-heading text-3xl text-ink mb-8 reveal">About This Product</h2>
+      <p class="font-body text-ink/80 text-lg leading-relaxed reveal delay-100">The Rijal Premium Hoodie in warm beige is built for the man who values both comfort and identity. Made from heavyweight fleece-blend fabric, it keeps you warm through Kashmir winters and cool city evenings alike. The relaxed fit, ribbed cuffs, and kangaroo pocket make it an instant everyday staple — at the masjid, on the street, or at home.</p>
+    </div>
+  </section>
+
+  <section class="cine-stats py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-heading text-3xl text-ink mb-10 text-center reveal">Key Features</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">Heavyweight fleece-blend fabric</p></div>
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal delay-100"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">Relaxed fit — S to XXL sizing</p></div>
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal delay-200"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">Warm beige — earthy and refined</p></div>
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">Ribbed cuffs and hem for a clean finish</p></div>
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal delay-100"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">Kangaroo pocket</p></div>
+        <div class="liquid-glass rounded-xl p-5 flex items-start gap-3 lift reveal delay-200"><svg style="width:20px;height:20px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px" viewBox="0 0 24 24"><path d="M20 7 9 18l-5-5"/></svg><p class="font-body text-ink/80 text-sm">Designed in Kashmir</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cine-cta py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-heading text-4xl text-ink mb-12 text-center reveal">You May Also Like</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <a href="/product/hoodie-black.html" class="liquid-glass rounded-2xl overflow-hidden lift flex gap-4 p-4 reveal"><div class="photo-frame rounded-xl overflow-hidden w-24 h-24 flex-shrink-0"><img src="https://rijal.in/wp-content/uploads/2025/09/IMG-20250907-WA0021-scaled.jpg" alt="Hoodie Black" class="w-full h-full object-cover" loading="lazy" /></div><div><p class="font-body text-xs text-amber-300 uppercase tracking-widest mb-1">Apparel</p><h3 class="font-heading text-lg text-ink leading-tight">Premium Hoodie — Black</h3><p class="font-body text-ink mt-1">₹999 <span class="text-white/40 line-through text-sm">₹2,000</span></p></div></a>
+        <a href="/product/cap-grey.html" class="liquid-glass rounded-2xl overflow-hidden lift flex gap-4 p-4 reveal delay-100"><div class="photo-frame rounded-xl overflow-hidden w-24 h-24 flex-shrink-0"><img src="https://rijal.in/wp-content/uploads/2025/09/IMG-20250907-WA0017-scaled.jpg" alt="Cap Grey" class="w-full h-full object-cover" loading="lazy" /></div><div><p class="font-body text-xs text-amber-300 uppercase tracking-widest mb-1">Apparel</p><h3 class="font-heading text-lg text-ink leading-tight">Premium Cap — Grey</h3><p class="font-body text-ink mt-1">₹249 <span class="text-white/40 line-through text-sm">₹500</span></p></div></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="relative z-10 cine-cta border-t border-white/10 px-6 md:px-12 lg:px-20 py-12">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
+    <div><div class="flex items-center gap-2"><span class="liquid-glass-strong rounded-full h-10 w-10 grid place-items-center"><span class="font-heading italic text-amber-300 text-xl">R</span></span><span class="font-heading italic text-2xl">Rijal</span></div><p class="mt-4 text-white/55 text-sm font-light max-w-xs">Inspired by Sunnah. Backed by Science. A Kashmiri grooming and apparel house.</p></div>
+    <div><div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Shop</div><ul class="space-y-2 text-sm text-white/80"><li><a href="/product/beard-oil.html" class="hover:text-white transition-colors">Beard Oil</a></li><li><a href="/product/comb.html" class="hover:text-white transition-colors">Comb</a></li><li><a href="/product/combo.html" class="hover:text-white transition-colors">Combo Pack</a></li></ul></div>
+    <div><div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Pages</div><ul class="space-y-2 text-sm text-white/80"><li><a href="/" class="hover:text-white transition-colors">Home</a></li><li><a href="/shop.html" class="hover:text-white transition-colors">Online Shop</a></li><li><a href="/about.html" class="hover:text-white transition-colors">About</a></li><li><a href="/contact.html" class="hover:text-white transition-colors">Contact</a></li></ul></div>
+    <div><div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Reach us</div><ul class="space-y-2 text-sm text-white/80"><li>+91&nbsp;9103&nbsp;998&nbsp;116</li><li>rijalstore1212@gmail.com</li><li>Baramulla, Jammu &amp; Kashmir, India</li><li><a href="https://www.instagram.com/rijal.store1" target="_blank" rel="noopener" class="hover:text-white transition-colors">@rijal.store1</a></li></ul></div>
+  </div>
+  <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-white/45">
+    <div>© 2026 Rijal. All rights reserved.</div>
+    <div class="flex items-center gap-4"><a href="#" class="hover:text-white">Privacy</a><a href="#" class="hover:text-white">Terms</a><a href="#" class="hover:text-white">Shipping</a></div>
+  </div>
+</footer>
+
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] liquid-glass-strong rounded-full px-5 py-3 text-sm font-medium opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+<script>
+  async function submitNotifyMe(productId, productName) {
+    const email = document.getElementById('notify-email').value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Please enter a valid email address.'); return; }
+    const btn = document.getElementById('notify-btn');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      const res = await fetch('/api/notify-me', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({email, productId})
+      });
+      if (res.ok) { btn.textContent = "You're on the list!"; showToast("We'll notify you when it's back!"); }
+      else { btn.disabled = false; btn.textContent = 'Notify Me When Available'; showToast('Something went wrong. Try again.'); }
+    } catch { btn.disabled = false; btn.textContent = 'Notify Me When Available'; showToast('Network error. Please try again.'); }
+  }
+  function showToast(msg) {
+    const t = document.getElementById('toast'); t.textContent = msg;
+    t.style.opacity = '1'; t.style.pointerEvents = 'none';
+    setTimeout(() => { t.style.opacity = '0'; }, 3500);
+  }
+  function swapImg(btn, src, alt) {
+    const m = document.getElementById('main-img'); m.style.opacity='0';
+    setTimeout(() => { m.src=src; m.alt=alt; m.style.opacity='1'; }, 150);
+    document.querySelectorAll('.grid button').forEach(b => b.classList.remove('ring-2','ring-white/20'));
+    btn.classList.add('ring-2','ring-white/20');
+  }
+  const io = new IntersectionObserver((e) => { e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); }); }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Order Confirmed — Rijal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          heading: ["'Instrument Serif'", "serif"],
+          body: ["'Barlow'", "sans-serif"],
+        },
+        colors: {
+          bg: "#1a0508",
+          ink: "#E8D8C4",
+          amber: { 50:"#f5ede4", 300:"#C7B7A3", 400:"#C7B7A3", 500:"#6D2932", 600:"#561C24" },
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root{--bg:#1a0508;--ink:#E8D8C4;--amber:#6D2932;}
+  html,body{background:#1a0508;color:var(--ink);}
+  body{font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;}
+  header{position:relative;z-index:50;}
+  .font-heading{font-family:'Instrument Serif',serif;}
+  .font-body{font-family:'Barlow',sans-serif;}
+  .liquid-glass{background:rgba(255,255,255,0.025);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,0.08);position:relative;overflow:hidden;}
+  .liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.15) 80%,rgba(255,255,255,.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .liquid-glass-strong{background:rgba(255,255,255,0.04);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:none;box-shadow:4px 4px 4px rgba(0,0,0,.05),inset 0 1px 1px rgba(255,255,255,.18);position:relative;overflow:hidden;}
+  .liquid-glass-strong::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.22) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.22) 80%,rgba(255,255,255,.55) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .cine-hero{background:radial-gradient(60% 80% at 30% 20%,rgba(109,41,50,.28),transparent 60%),radial-gradient(50% 70% at 80% 90%,rgba(86,28,36,.18),transparent 60%),linear-gradient(180deg,#200a0e 0%,#1a0508 60%,#110305 100%);}
+  .cine-cta{background:radial-gradient(60% 80% at 30% 80%,rgba(109,41,50,.28),transparent 60%),radial-gradient(80% 60% at 80% 20%,rgba(86,28,36,.14),transparent 60%),linear-gradient(180deg,#1c0609 0%,#1a0508 100%);}
+  ::selection{background:rgba(109,41,50,0.45);color:#E8D8C4;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.6rem 1rem;font-size:.875rem;font-weight:500;}
+  .btn-primary{background:#fff;color:#1a0508;}
+  .btn-primary:hover{background:#E8D8C4;}
+  .btn-amber{background:linear-gradient(180deg,#6D2932,#3D0F17);color:#E8D8C4;}
+  .btn-amber:hover{filter:brightness(1.08);}
+  .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  @keyframes pop-in{0%{transform:scale(0.5);opacity:0;}60%{transform:scale(1.15);}100%{transform:scale(1);opacity:1;}}
+  .pop-in{animation:pop-in .6s cubic-bezier(.2,.8,.3,1.2) forwards;}
+  @media(max-width:767px){.liquid-glass{backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}.liquid-glass-strong{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}}
+</style>
+</head>
+<body class="bg-bg text-ink antialiased">
+
+<!-- NAVBAR -->
+<header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 lg:px-16 py-3">
+  <div class="flex items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2">
+      <span class="liquid-glass-strong rounded-full h-11 w-11 grid place-items-center">
+        <span class="font-heading italic text-xl text-amber-300">R</span>
+      </span>
+      <span class="hidden md:inline font-heading italic text-xl tracking-tight">Rijal</span>
+    </a>
+    <nav class="hidden md:flex liquid-glass rounded-full px-1.5 py-1 items-center gap-0.5">
+      <a href="/" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Home</a>
+      <a href="/shop.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Shop</a>
+      <a href="/about.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">About</a>
+      <a href="/contact.html" class="px-3 py-2 text-sm font-medium text-ink/70 font-body rounded-full hover:text-white">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="cine-hero min-h-screen flex items-center justify-center px-6 pt-24">
+  <div class="max-w-lg mx-auto text-center">
+    <!-- Animated checkmark -->
+    <div class="w-24 h-24 rounded-full bg-green-400/10 border border-green-400/30 flex items-center justify-center mx-auto mb-8 pop-in">
+      <svg style="width:48px;height:48px;stroke:#4ade80;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24">
+        <path d="M20 7 9 18l-5-5"/>
+      </svg>
+    </div>
+
+    <h1 class="font-heading text-5xl text-ink mb-4">Order Confirmed!</h1>
+    <p class="font-body text-ink/70 text-lg mb-2">Jazakallah Khair for your purchase.</p>
+    <p id="order-id-display" class="font-body text-amber-300 text-sm mb-2"></p>
+    <p class="font-body text-ink/50 text-sm mb-10">
+      A confirmation email has been sent to your inbox.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+      <a id="wa-track-link" href="https://wa.me/919103998116" target="_blank" rel="noopener"
+         class="btn btn-primary rounded-xl px-8 py-3 text-base">
+        <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#25D366;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.101 1.516 5.824L.055 23.454a.5.5 0 0 0 .491.601l5.809-1.524A11.947 11.947 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.573 9.573 0 0 1-4.885-1.34l-.35-.208-3.626.951.968-3.536-.228-.363A9.555 9.555 0 0 1 2.4 12C2.4 6.698 6.698 2.4 12 2.4S21.6 6.698 21.6 12 17.302 21.6 12 21.6z"/></svg>
+        Track Order on WhatsApp
+      </a>
+      <a href="/shop.html" class="btn liquid-glass rounded-xl px-8 py-3 text-base text-ink">
+        Continue Shopping
+      </a>
+    </div>
+
+    <div class="liquid-glass rounded-2xl p-6 text-left">
+      <p class="font-body text-xs text-white/50 uppercase tracking-widest mb-3">What happens next?</p>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <div class="liquid-glass-strong rounded-full w-6 h-6 grid place-items-center flex-shrink-0 mt-0.5">
+            <span class="font-heading text-xs text-amber-300">1</span>
+          </div>
+          <p class="font-body text-ink/70 text-sm">You'll receive a confirmation email with your order details.</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="liquid-glass-strong rounded-full w-6 h-6 grid place-items-center flex-shrink-0 mt-0.5">
+            <span class="font-heading text-xs text-amber-300">2</span>
+          </div>
+          <p class="font-body text-ink/70 text-sm">We'll pack and dispatch your order within 2 business days from Baramulla, J&amp;K.</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="liquid-glass-strong rounded-full w-6 h-6 grid place-items-center flex-shrink-0 mt-0.5">
+            <span class="font-heading text-xs text-amber-300">3</span>
+          </div>
+          <p class="font-body text-ink/70 text-sm">Message us on WhatsApp anytime to track your shipment or ask questions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="relative z-10 cine-cta border-t border-white/10 px-6 md:px-12 lg:px-20 py-12">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="liquid-glass-strong rounded-full h-10 w-10 grid place-items-center"><span class="font-heading italic text-amber-300 text-xl">R</span></span>
+        <span class="font-heading italic text-2xl">Rijal</span>
+      </div>
+      <p class="mt-4 text-white/55 text-sm font-light max-w-xs">Inspired by Sunnah. Backed by Science. A Kashmiri grooming and apparel house.</p>
+    </div>
+    <div>
+      <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Shop</div>
+      <ul class="space-y-2 text-sm text-white/80">
+        <li><a href="/product/beard-oil.html" class="hover:text-white transition-colors">Beard Oil</a></li>
+        <li><a href="/product/comb.html" class="hover:text-white transition-colors">Comb</a></li>
+        <li><a href="/product/combo.html" class="hover:text-white transition-colors">Combo Pack</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Pages</div>
+      <ul class="space-y-2 text-sm text-white/80">
+        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+        <li><a href="/shop.html" class="hover:text-white transition-colors">Online Shop</a></li>
+        <li><a href="/about.html" class="hover:text-white transition-colors">About</a></li>
+        <li><a href="/contact.html" class="hover:text-white transition-colors">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-[11px] uppercase tracking-[0.18em] text-white/55 mb-3">Reach us</div>
+      <ul class="space-y-2 text-sm text-white/80">
+        <li>+91&nbsp;9103&nbsp;998&nbsp;116</li>
+        <li>rijalstore1212@gmail.com</li>
+        <li>Baramulla, Jammu &amp; Kashmir, India</li>
+        <li><a href="https://www.instagram.com/rijal.store1" target="_blank" rel="noopener" class="hover:text-white transition-colors">@rijal.store1</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-white/45">
+    <div>© 2026 Rijal. All rights reserved.</div>
+    <div class="flex items-center gap-4">
+      <a href="#" class="hover:text-white">Privacy</a>
+      <a href="#" class="hover:text-white">Terms</a>
+      <a href="#" class="hover:text-white">Shipping</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get('order_id');
+  if (orderId) {
+    document.getElementById('order-id-display').textContent = `Order ID: ${orderId}`;
+    document.getElementById('wa-track-link').href =
+      `https://wa.me/919103998116?text=Hi%2C%20my%20Rijal%20order%20ID%20is%20${encodeURIComponent(orderId)}.%20Please%20help%20me%20track%20it.`;
+  }
+  // Clear cart + session after successful order
+  sessionStorage.removeItem('rijal_customer');
+  localStorage.removeItem('rijal_cart');
+</script>
+</body>
+</html>
